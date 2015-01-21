@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.params=theName
+comment0.target=Person(java.lang.String)
+comment0.text=\r\n\ Constructor\ for\ objects\ of\ class\ Person\r\n
+comment1.params=
+comment1.target=java.lang.String\ getName()
+comment1.text=\r\n\ An\ example\ of\ a\ method\ -\ replace\ this\ comment\ with\ your\ own\r\n\ \r\n\ @param\ \ y\ \ \ a\ sample\ parameter\ for\ a\ method\r\n\ @return\ \ \ \ \ the\ sum\ of\ x\ and\ y\ \r\n
+comment2.params=
+comment2.target=java.lang.String\ getFirstAnswer()
+comment3.params=
+comment3.target=java.lang.String\ getSecondAnswer()
+comment4.params=PersonName
+comment4.target=void\ setAnswersAndItem(java.lang.String)
+comment5.params=item
+comment5.target=void\ removeItem(java.lang.String)
+numComments=6

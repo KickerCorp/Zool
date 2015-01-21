@@ -1,0 +1,21 @@
+#BlueJ class context
+comment0.params=description\ personName\ item
+comment0.target=Room(java.lang.String,\ java.lang.String,\ java.lang.String)
+comment0.text=\r\n\ Create\ a\ room\ described\ "description".\ Initially,\ it\ has\r\n\ no\ exits.\ "description"\ is\ something\ like\ "a\ kitchen"\ or\r\n\ "an\ open\ court\ yard".\r\n\ @param\ description\ The\ room's\ description.\r\n
+comment1.params=direction\ roomName
+comment1.target=void\ setExits(java.lang.String,\ Room)
+comment1.text=\r\n\ Define\ the\ exits\ of\ this\ room.\ \ Every\ direction\ either\ leads\r\n\ to\ another\ room\ or\ is\ null\ (no\ exit\ there).\r\n\ @param\ north\ The\ north\ exit.\r\n\ @param\ east\ The\ east\ east.\r\n\ @param\ south\ The\ south\ exit.\r\n\ @param\ west\ The\ west\ exit.\r\n
+comment2.params=
+comment2.target=java.lang.String\ getItemName()
+comment3.params=
+comment3.target=void\ removeItem()
+comment4.params=
+comment4.target=java.lang.String\ getExits()
+comment5.params=pdirection
+comment5.target=Room\ changeRoom(java.lang.String)
+comment6.params=
+comment6.target=java.lang.String\ getAnswerOfThePersonInThisRoom()
+comment7.params=
+comment7.target=java.lang.String\ getDescription()
+comment7.text=\r\n\ @return\ The\ description\ of\ the\ room.\r\n
+numComments=8

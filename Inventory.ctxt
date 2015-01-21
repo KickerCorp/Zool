@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.params=
+comment0.target=Inventory()
+comment0.text=\r\n\ Constructor\ for\ objects\ of\ class\ Inventory\r\n
+comment1.params=item
+comment1.target=void\ addToInventory(java.lang.String)
+comment2.params=Use
+comment2.target=void\ useItem(java.lang.String)
+comment3.params=
+comment3.target=java.lang.String\ showInventory()
+numComments=4
