@@ -30,12 +30,12 @@ public class Game
     public Game() 
     {
         rooms = new Room[12];
-       backpackFound = false;
+        backpackFound = false;
         createRooms();
         parser = new Parser();    
         assignment = new Assignments();
         Inventar = new Inventory(); // NEU NEU
-        
+
     }
 
     /**
@@ -193,8 +193,10 @@ public class Game
             result = sprechen(command);
         else if (commandWord.equals("NIMM"))        
             result = nehmen(command);
-       else if (commandWord.equals("INVENTAR"))
+        else if (commandWord.equals("INVENTAR"))
             result = showInventar();
+        else if (commandWord.equals("KARTE"))
+            result = showMap();
         return result;
 
     }
@@ -243,10 +245,10 @@ public class Game
         }else{            
             System.out.println();
             result += currentRoom.getDescription()+"\n" + "\n" + "zur Verfügung stehende Ausgänge: " + currentRoom.getExits();
-            
+
             return result;
         }
-        
+
     }
 
     /** 
@@ -263,7 +265,7 @@ public class Game
             return null;  // signal that we want to quit
         }
     }
-    
+
     private String auftrag(Command command){
         String result = assignment.getCurrentTask();
         return result;
@@ -273,78 +275,96 @@ public class Game
         String result = currentRoom.getAnswerOfThePersonInThisRoom();
         return result;
     }
-    
+
     private String nehmen(Command command){
-            if(!command.hasSecondWord()) {
+        if(!command.hasSecondWord()) {
             // if there is no second word, we don't know where to go...
             return "Was soll ich nehmen?";
-           }   
-            else{
-                if(currentRoom.getItemName() == null){return "Das gibt es hier nicht!";}
-                else if(currentRoom.getItemName().equals(command.getSecondWord())){
-                    if(command.getSecondWord().equals("Rucksack")){
-                        backpackFound=true;
-                    }
-                    if(backpackFound){
-                        String result = "Du erhälst ";
-                        result += command.getSecondWord();
-                        Inventar.addToInventory(command.getSecondWord());
-                        currentRoom.removeItem();
-                        return result;
-                    }
-                    else  {return "Du brauchst erst einen Rucksack!";}
-                   
+        }   
+        else{
+            if(currentRoom.getItemName() == null){return "Das gibt es hier nicht!";}
+            else if(currentRoom.getItemName().equals(command.getSecondWord())){
+                if(command.getSecondWord().equals("Rucksack")){
+                    backpackFound=true;
                 }
-                else{return "Das kann ich nicht einsammeln";}
-                
+                if(backpackFound){
+                    String result = "Du erhälst ";
+                    result += command.getSecondWord();
+                    Inventar.addToInventory(command.getSecondWord());
+                    currentRoom.removeItem();
+                    return result;
                 }
+                else  {return "Du brauchst erst einen Rucksack!";}
+
+            }
+            else{return "Das kann ich nicht einsammeln";}
+
+        }
     }
-    
+
     private String showInventar(){
-     return Inventar.showInventory();
+        return Inventar.showInventory();
     }
-    
+
     public static void main(String[] args){
         Game game = new Game();
         game.play();
     }
 
-    public void showMap(){
-    System.out.println ("Erdgeschoss     T = Treppe");
-    System.out.println ("");    
-    System.out.println (" __________     ________");
-    System.out.println ("|          |   |        |");
-    System.out.println ("|  Küche   |---| Garten |");
-    System.out.println ("|__________|   |________|");
-    System.out.println (" _____|____     ____|___");
-    System.out.println ("|          |   |        |");
-    System.out.println ("| Eingang  |---|Terasse |");
-    System.out.println ("|_T________|   |________|");
-    
-    System.out.println ("Kellergeschoss     T = Treppe");
-    System.out.println (" ");
-    System.out.println (" ___________     ___________    ____________");
-    System.out.println ("| Werkstatt |   |          |   |            |");
-    System.out.println ("|           |---|   Keller |---|Vorratsraum |");
-    System.out.println ("|___________|   |_T________|   |____________|");
-    
-    System.out.println ("1. Etage     T = Treppe");
-    System.out.println ("");
-    System.out.println (" ___________     ___________     ____________");
-    System.out.println ("|           |   |           |   |            |");
-    System.out.println ("|   Bad     |---|   Flur    |---|Schlafzimmer|");
-    System.out.println ("|___________|   |_T_________|   |____________|");
-    
-    System.out.println ("Turmgeschoss     T = Treppe");
-    System.out.println ("");
-    System.out.println (" ___________     ____________");
-    System.out.println ("|           |   |           | ");
-    System.out.println ("|Kickerraum |---|  Zielturm |");
-    System.out.println ("|_T_________|   |___________|");
-    
-    
-    
-    
+    public String showMap(){
+        String result = "";
+        for(int i = 0; i < 4; i++){
+            if(currentRoom == rooms[i]){
+                result +="Erdgeschoss     T = Treppe\n";               
+                result +=" __________     ________\n";
+                result +="|          |   |        |\n";
+                result +="|  Küche   |---| Garten |\n";
+                result +="|__________|   |________|\n";
+                result +=" _____|____     ____|___\n";
+                result +="|          |   |        |\n";
+                result +="| Eingang  |---|Terasse |\n";
+                result +="|_T________|   |________|\n";
+                return result;
+            }
+        }
+
+        for(int i = 7; i <10; i++){
+            if (currentRoom == rooms[i]){
+                result += "Kellergeschoss     T = Treppe\n";
+
+                result += " ___________     ___________    ____________\n";
+                result += "| Werkstatt |   |          |   |            |\n";
+                result += "|           |---|   Keller |---|Vorratsraum |\n";
+                result += "|___________|   |_T________|   |____________|\n";
+                return result;
+            }
+        }
+
+        for(int i = 4; i < 7; i++){
+            if(currentRoom == rooms[i]){
+                result += "1. Etage     T = Treppe\n";               
+                result += " ___________     ___________     ____________\n";
+                result += "|           |   |           |   |            |\n";
+                result += "|   Bad     |---|   Flur    |---|Schlafzimmer|\n";
+                result += "|___________|   |_T_________|   |____________|\n";
+                return result;
+            }
+
+        }
+        for (int i = 10; i < 12; i++){
+            if(currentRoom == rooms[i]){
+                result += "Turmgeschoss     T = Treppe\n";               
+                result += " ___________     ____________\n";
+                result += "|           |   |           |\n";
+                result += "|Kickerraum |---|  Zielturm |\n";
+                result += "|_T_________|   |___________|\n";
+                return result;
+            }
+
+        }
+
+        
+        return result;
     }
-    
 }
+

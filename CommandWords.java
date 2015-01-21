@@ -13,7 +13,7 @@ public class CommandWords
 {
     // a constant array that holds all valid command words
     private static final String[] validCommands = {
-        "NACH", "TSCH‹SS", "HILFE", "AUFTRAG", "SPRICH","NIMM","INVENTAR" //Alle groﬂgeschrieben wegen trimtoUpperCase() in Parser. 
+        "NACH", "TSCH‹SS", "HILFE", "AUFTRAG", "SPRICH","NIMM","INVENTAR", "KARTE" //Alle groﬂgeschrieben wegen trimtoUpperCase() in Parser. 
     };
 
     /**
