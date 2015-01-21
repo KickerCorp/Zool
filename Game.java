@@ -49,8 +49,8 @@ public class Game
         // create the rooms
         eingangshalle = new Room("Du befindest dich in der Eingangshalle",null,null);
         schlossgarten = new Room("Du befindest dich im Schlossgarten","Tom",null);
-        kueche = new Room("Du befindest dich in der Küche",null,"Brot");
-        schlafzimmer = new Room("Du befindest dich im Schlafzimmer",null,"Rucksack"); //Rucksack hinzugefügt
+        kueche = new Room("Du befindest dich in der Küche",null,"BROT");
+        schlafzimmer = new Room("Du befindest dich im Schlafzimmer",null,"RUCKSACK"); //Rucksack hinzugefügt
         badezimmer = new Room("Du befindest dich im Badezimmer",null,null);
         keller = new Room("Du befindest dich im Keller",null,null);
         vorratskammer = new Room("Du befindest dich in der Vorratskammer",null,null);
@@ -228,7 +228,7 @@ public class Game
             return "Go where?";
         }
         String result = "";
-        //speichert akutellen Raum lokal
+        //speichert aktuellen Raum lokal
         Room lastRoom = currentRoom;
 
         //direction ist zweites eingegebens Wort
@@ -284,7 +284,7 @@ public class Game
         else{
             if(currentRoom.getItemName() == null){return "Das gibt es hier nicht!";}
             else if(currentRoom.getItemName().equals(command.getSecondWord())){
-                if(command.getSecondWord().equals("Rucksack")){
+                if(command.getSecondWord().equals("RUCKSACK")){
                     backpackFound=true;
                 }
                 if(backpackFound){
