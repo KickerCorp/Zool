@@ -307,4 +307,42 @@ public class Game
         game.play();
     }
 
+    public void showMap(){
+    System.out.println ("Erdgeschoss     T = Treppe");
+    System.out.println ("");    
+    System.out.println (" __________     ________");
+    System.out.println ("|          |   |        |");
+    System.out.println ("|  Küche   |---| Garten |");
+    System.out.println ("|__________|   |________|");
+    System.out.println (" _____|____     ____|___");
+    System.out.println ("|          |   |        |");
+    System.out.println ("| Eingang  |---|Terasse |");
+    System.out.println ("|_T________|   |________|");
+    
+    System.out.println ("Kellergeschoss     T = Treppe");
+    System.out.println (" ");
+    System.out.println (" ___________     ___________    ____________");
+    System.out.println ("| Werkstatt |   |          |   |            |");
+    System.out.println ("|           |---|   Keller |---|Vorratsraum |");
+    System.out.println ("|___________|   |_T________|   |____________|");
+    
+    System.out.println ("1. Etage     T = Treppe");
+    System.out.println ("");
+    System.out.println (" ___________     ___________     ____________");
+    System.out.println ("|           |   |           |   |            |");
+    System.out.println ("|   Bad     |---|   Flur    |---|Schlafzimmer|");
+    System.out.println ("|___________|   |_T_________|   |____________|");
+    
+    System.out.println ("Turmgeschoss     T = Treppe");
+    System.out.println ("");
+    System.out.println (" ___________     ____________");
+    System.out.println ("|           |   |           | ");
+    System.out.println ("|Kickerraum |---|  Zielturm |");
+    System.out.println ("|_T_________|   |___________|");
+    
+    
+    
+    
+    }
+    
 }
