@@ -47,10 +47,11 @@ public class Game
         Room eingangshalle, schlossgarten, kueche, terrasse, schlafzimmer,flur, badezimmer, keller, vorratskammer, kickerraum, werkstatt, zielraum;
 
         // create the rooms
+
         eingangshalle = new Room("Du befindest dich in der Eingangshalle",null,null,true);
         schlossgarten = new Room("Du befindest dich im Schlossgarten","Tom",null,true);
-        kueche = new Room("Du befindest dich in der Küche",null,"Brot",false);
-        schlafzimmer = new Room("Du befindest dich im Schlafzimmer",null,"Rucksack",true); //Rucksack hinzugefügt
+        kueche = new Room("Du befindest dich in der Küche",null,"BROT",false);
+        schlafzimmer = new Room("Du befindest dich im Schlafzimmer",null,"RUCKSACK",true); //Rucksack hinzugefügt
         badezimmer = new Room("Du befindest dich im Badezimmer",null,null,true);
         keller = new Room("Du befindest dich im Keller",null,null,true);
         vorratskammer = new Room("Du befindest dich in der Vorratskammer",null,null,true);
@@ -59,6 +60,8 @@ public class Game
         zielraum = new Room("Du befindest dich im Zielraum",null,null,false);
         werkstatt = new Room("Du befindest dich in der Werkstatt",null,null,true);
         terrasse = new Room("Du befindest dich auf der Terrasse",null,null,true);
+
+        
 
         rooms[0] = eingangshalle;
         rooms[1] = terrasse;
@@ -229,7 +232,7 @@ public class Game
             return "Go where?";
         }
         String result = "";
-        //speichert akutellen Raum lokal
+        //speichert aktuellen Raum lokal
         Room lastRoom = currentRoom;
 
         //direction ist zweites eingegebens Wort
@@ -290,7 +293,7 @@ public class Game
         else{
             if(currentRoom.getItemName() == null){return "Das gibt es hier nicht!";}
             else if(currentRoom.getItemName().equals(command.getSecondWord())){
-                if(command.getSecondWord().equals("Rucksack")){
+                if(command.getSecondWord().equals("RUCKSACK")){
                     backpackFound=true;
                 }
                 if(backpackFound){
