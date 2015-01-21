@@ -74,30 +74,31 @@ public class Game
         rooms[11] = zielraum;
 
         // initialise room exits
-        eingangshalle.setExits( "Osten", terrasse );
-        eingangshalle.setExits( "Norden", kueche );
-        eingangshalle.setExits( "Oben", flur );
-        eingangshalle.setExits( "Unten", keller );
-        keller.setExits("Oben", eingangshalle);
-        keller.setExits("Westen", vorratskammer);
-        keller.setExits("Osten", werkstatt);
-        vorratskammer.setExits("Osten", keller);
-        werkstatt.setExits("Westen",keller);
-        terrasse.setExits("Westen", eingangshalle);
-        terrasse.setExits("Norden", schlossgarten);
-        schlossgarten.setExits("Westen", kueche);
-        schlossgarten.setExits("Norden", zielraum);
-        schlossgarten.setExits("Süden", terrasse);
-        kueche.setExits("Süden", eingangshalle);
-        kueche.setExits("Osten", schlossgarten);
-        flur.setExits("Westen", badezimmer);
-        flur.setExits("Unten" , eingangshalle);
-        flur.setExits("Osten" , schlafzimmer);
-        flur.setExits("Oben", kickerraum);
-        badezimmer.setExits("Osten", flur);
-        schlafzimmer.setExits("Westen", flur);
-        kickerraum.setExits("Unten", flur);
-        zielraum.setExits("Süden", schlossgarten);
+        //alle Himmelsrichtungen großgeschrieben wegen trimUpperCase() in Parser
+        eingangshalle.setExits( "OSTEN", terrasse );
+        eingangshalle.setExits( "NORDEN", kueche );
+        eingangshalle.setExits( "OBEN", flur );
+        eingangshalle.setExits( "UNTEN", keller );
+        keller.setExits("OBEN", eingangshalle);
+        keller.setExits("WESTEN", vorratskammer);
+        keller.setExits("OSTEN", werkstatt);
+        vorratskammer.setExits("OSTEN", keller);
+        werkstatt.setExits("WESTEN",keller);
+        terrasse.setExits("WESTEN", eingangshalle);
+        terrasse.setExits("NORDEN", schlossgarten);
+        schlossgarten.setExits("WESTEN", kueche);
+        schlossgarten.setExits("NORDEN", zielraum);
+        schlossgarten.setExits("SÜDEN", terrasse);
+        kueche.setExits("SÜDEN", eingangshalle);
+        kueche.setExits("OSTEN", schlossgarten);
+        flur.setExits("WESTEN", badezimmer);
+        flur.setExits("UNTEN" , eingangshalle);
+        flur.setExits("OSTEN" , schlafzimmer);
+        flur.setExits("OBEN", kickerraum);
+        badezimmer.setExits("OSTEN", flur);
+        schlafzimmer.setExits("WESTEN", flur);
+        kickerraum.setExits("UNTEN", flur);
+        zielraum.setExits("SÜDEN", schlossgarten);
         currentRoom = eingangshalle;  // start game outside
     }
 
@@ -179,19 +180,20 @@ public class Game
 
         String commandWord = command.getCommandWord();
         String result = null;
-        if (commandWord.equals("Hilfe"))
+        //alle commands großgeschrieben wegen trimUpperCase() in Parser
+        if (commandWord.equals("HILFE"))
             result = printHelp();
-        else if (commandWord.equals("nach"))
+        else if (commandWord.equals("NACH"))    
             result = goRoom(command);
-        else if (commandWord.equals("Tschüss"))
+        else if (commandWord.equals("TSCHÜSS"))
             result = quit(command);
-        else if (commandWord.equals("Auftrag"))
+        else if (commandWord.equals("AUFTRAG"))
             result = auftrag(command);
-        else if (commandWord.equals("sprich"))
+        else if (commandWord.equals("SPRICH"))      
             result = sprechen(command);
-        else if (commandWord.equals("nimm"))
+        else if (commandWord.equals("NIMM"))        
             result = nehmen(command);
-       else if (commandWord.equals("Inventar"))
+       else if (commandWord.equals("INVENTAR"))
             result = showInventar();
         return result;
 

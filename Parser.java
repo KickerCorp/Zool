@@ -32,8 +32,9 @@ public class Parser
     }
 
     private String readLine(){
-        System.out.print("> ");     // print prompt
-        return  reader.nextLine();
+       System.out.print("> ");     // print prompt
+       String capital = reader.nextLine().trim().toUpperCase();
+       return capital;
     }
 
     /**
