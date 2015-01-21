@@ -19,6 +19,7 @@ public class Room
   private HashMap<String, Room> exits;
   private Person person;
   private String item;
+  private boolean open;
  
 
     /**
@@ -27,7 +28,7 @@ public class Room
      * "an open court yard".
      * @param description The room's description.
      */
-    public Room(String description, String personName, String item) 
+    public Room(String description, String personName, String item, boolean open) 
     {
         this.description = description;
         exits = new HashMap<>();
@@ -40,7 +41,7 @@ public class Room
         this.item = item;
        } 
        else{item =null;} 
-       
+       this.open = open;
     }
 
     /**
@@ -100,6 +101,14 @@ public class Room
     public String getAnswerOfThePersonInThisRoom (){
         if(person == null){return "Hier ist niemand mit dem du sprechen könntest!";}   
         else {return person.getFirstAnswer();}
+    }
+    
+    public boolean isOpen(){
+        return open;
+    }
+    
+    public void setOpen(){
+        this.open = true;
     }
 
     /**

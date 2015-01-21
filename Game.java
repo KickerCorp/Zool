@@ -47,18 +47,18 @@ public class Game
         Room eingangshalle, schlossgarten, kueche, terrasse, schlafzimmer,flur, badezimmer, keller, vorratskammer, kickerraum, werkstatt, zielraum;
 
         // create the rooms
-        eingangshalle = new Room("Du befindest dich in der Eingangshalle",null,null);
-        schlossgarten = new Room("Du befindest dich im Schlossgarten","Tom",null);
-        kueche = new Room("Du befindest dich in der Küche",null,"Brot");
-        schlafzimmer = new Room("Du befindest dich im Schlafzimmer",null,"Rucksack"); //Rucksack hinzugefügt
-        badezimmer = new Room("Du befindest dich im Badezimmer",null,null);
-        keller = new Room("Du befindest dich im Keller",null,null);
-        vorratskammer = new Room("Du befindest dich in der Vorratskammer",null,null);
-        kickerraum = new Room("Du befindest dich im Kickerraum",null,null);
-        flur = new Room("Du befindest dich im Flur in der ersten Etage",null,null);
-        zielraum = new Room("Du befindest dich im Zielraum",null,null);
-        werkstatt = new Room("Du befindest dich in der Werkstatt",null,null);
-        terrasse = new Room("Du befindest dich auf der Terrasse",null,null);
+        eingangshalle = new Room("Du befindest dich in der Eingangshalle",null,null,true);
+        schlossgarten = new Room("Du befindest dich im Schlossgarten","Tom",null,true);
+        kueche = new Room("Du befindest dich in der Küche",null,"Brot",false);
+        schlafzimmer = new Room("Du befindest dich im Schlafzimmer",null,"Rucksack",true); //Rucksack hinzugefügt
+        badezimmer = new Room("Du befindest dich im Badezimmer",null,null,true);
+        keller = new Room("Du befindest dich im Keller",null,null,true);
+        vorratskammer = new Room("Du befindest dich in der Vorratskammer",null,null,true);
+        kickerraum = new Room("Du befindest dich im Kickerraum",null,null,false);
+        flur = new Room("Du befindest dich im Flur in der ersten Etage",null,null,true);
+        zielraum = new Room("Du befindest dich im Zielraum",null,null,false);
+        werkstatt = new Room("Du befindest dich in der Werkstatt",null,null,true);
+        terrasse = new Room("Du befindest dich auf der Terrasse",null,null,true);
 
         rooms[0] = eingangshalle;
         rooms[1] = terrasse;
@@ -143,18 +143,19 @@ public class Game
         System.out.println();
         System.out.println("Schreibe [nach] gefolgt von [Osten], [Westen], [Norden],");
         System.out.println("[Süden], [Oben] oder [Unten], um einen Raum");
-        System.out.println("in angegebener Richtung zu verlassen");
+        System.out.println("in angegebener Richtung zu verlassen.");
         System.out.println();
-        System.out.println("Schreibe [Auftrag], um dir deine aktuelle Mission anzeigen zu lassen");
+        System.out.println("Schreibe [Auftrag], um dir deine aktuelle Mission anzeigen zu lassen.");
         System.out.println();
         System.out.println("Schreibe [], um mit einer Person zu reden.");
         System.out.println();
-        System.out.println("Schreibe [nimm + gewünschten Gegenstand], um einen Gegenstand aufzusammeln");
+        System.out.println("Schreibe [nimm + gewünschten Gegenstand], um einen Gegenstand aufzusammeln.");
         System.out.println();
         System.out.println("Schreibe [Inventar] um dir ein derzeitges Inventar anzuzeigen.");
         System.out.println();
         System.out.println("Schreibe [Tschüss], wenn du das Spiel beenden möchtest.");
         System.out.println();
+        System.out.println("Schreibe [Karte], um dir die Karte des aktuellen Stockwerks anzeigen zu lassen.");
         System.out.println(assignment.getCurrentTask());
         System.out.println();
         System.out.println(currentRoom.getDescription());
@@ -239,7 +240,12 @@ public class Game
         this.currentRoom = nextRoom;
         // wenn nicht möglich
         if(currentRoom == null){
-            result += "Du rennst gegen eine Wand";
+            result += "Du rennst gegen eine Wand und hast furchtbare Schmerzen.\nDeine Abenteuerlust aber besiegt den Schmerz.\nIn dieser Richtung gibt es keine Tür.\n";
+            currentRoom = lastRoom;
+            return result;
+        }
+        if(!currentRoom.isOpen()){
+            result += " Um diesen Raum betreten zu können, brauchst du einen Schlüssel.\n";
             currentRoom = lastRoom;
             return result;
         }else{            
