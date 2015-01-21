@@ -74,11 +74,18 @@ public class Room
     
     public Room changeRoom(String pdirection){
         Room nextRoom = null;
+        //Ausgänge werden im Uhrzeigersinn überprüft.
         if (pdirection.equals("NORDEN")){
             nextRoom = exits.get("NORDEN");
         }
         if (pdirection.equals("OSTEN")){
             nextRoom = exits.get("OSTEN");
+        }
+         if(pdirection.equals("SÜDEN")){
+            nextRoom = exits.get("SÜDEN");
+        }
+         if(pdirection.equals("WESTEN")){
+            nextRoom = exits.get("WESTEN");
         }
         if (pdirection.equals("OBEN")){
             nextRoom = exits.get("OBEN");
@@ -86,12 +93,7 @@ public class Room
         if (pdirection.equals("UNTEN")){
             nextRoom = exits.get("UNTEN");
         }
-        if(pdirection.equals("WESTEN")){
-            nextRoom = exits.get("WESTEN");
-        }
-         if(pdirection.equals("SÜDEN")){
-            nextRoom = exits.get("SÜDEN");
-        }
+        
         return nextRoom;
     }
     
