@@ -57,9 +57,15 @@ public class Room
         exits.put(direction, roomName);
     }
     
+    public String getPersonName(){
+        if (person == null){return "NICHTS";}
+       else{return person.getName();}
+    }
+    
     public String getItemName(){
         return  item;
     }
+
     public void removeItem(){
         item = null;
     }

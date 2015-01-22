@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.*;
 /**
  * Write a description of class Inventory here.
  * 
@@ -40,19 +40,25 @@ public class Inventory
             
         }
     
-    public void useItem(String Use){
-        for(String Item : Inventar){
-          if(Item.equals(Use)){
-             Inventar.remove(Inventar.indexOf(Item));
-             ObjectsInInventory = ObjectsInInventory -1;
-          }
-       }
-    }
+    public boolean removeItem(String item){
+       boolean returned = false;    
+       Iterator<String> itr = Inventar.iterator();
+       while (itr.hasNext()) {
+           String element = itr.next();
+           if(element.equals(item)){
+               Inventar.remove(element);
+               ObjectsInInventory += ObjectsInInventory -1;
+               returned =true;
+            }
+        }
+         return returned;
+        }
     
     public String showInventory(){
         String result = "In deinem Rucksack befinden sich: ";   
         for (String Item : Inventar){ 
          result += Item;
+         result += " ";
         }
         if(Inventar.isEmpty()){
             result = "nichts - Es ist leer!";

@@ -36,6 +36,7 @@ public class Person
      */
     public String getName()
     {
+       
         return name;
     }
     
@@ -48,6 +49,7 @@ public class Person
      public String getSecondAnswer(){
         return secondAnswer;
     }
+
     
     // Methoden:
     

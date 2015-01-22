@@ -23,6 +23,7 @@ public class Game
     private boolean backpackFound;
     private Assignments assignment;
     private Inventory Inventar;
+    private Interaction interAct;
 
     /**
      * Create the game and initialise its internal map.
@@ -34,7 +35,7 @@ public class Game
         createRooms();
         parser = new Parser();    
         assignment = new Assignments();
-        Inventar = new Inventory(); // NEU NEU
+        Inventar = new Inventory();
 
     }
 
@@ -48,9 +49,9 @@ public class Game
 
         // create the rooms
 
-        eingangshalle = new Room("Du befindest dich in der Eingangshalle",null,null,true);
+        eingangshalle = new Room("Du befindest dich in der Eingangshalle",null,"RUCKSACK",true);
         schlossgarten = new Room("Du befindest dich im Schlossgarten",null,"KLEEBLATT",true);
-        kueche = new Room("Du befindest dich in der Küche","HERD","RUCKSACK",false);
+        kueche = new Room("Du befindest dich in der Küche","HERD",null,false);
         schlafzimmer = new Room("Du befindest dich im Schlafzimmer",null,null,true); //Rucksack hinzugefügt
         badezimmer = new Room("Du befindest dich im Badezimmer",null,"HUFEISEN",true);
         keller = new Room("Du befindest dich im Keller","Türsteher",null,true);
@@ -104,7 +105,12 @@ public class Game
         zielraum.setExits("SÜDEN", schlossgarten);
         currentRoom = eingangshalle;  // start game outside
     }
-
+    
+    public String getcurrentRoomPerson(){
+    
+        return currentRoom.getPersonName();
+    }
+    
     /**
      *  Main play routine.  Loops until end of play.
      */
@@ -281,8 +287,11 @@ public class Game
     }
 
     private String interagieren(Command command){
-        String result = currentRoom.getAnswerOfThePersonInThisRoom();
+        interAct = new Interaction(this.Inventar);
+        String person = currentRoom.getPersonName();
+        String result = interAct.interactWithIt(person);
         return result;
+      
     }
 
     private String nehmen(Command command){
