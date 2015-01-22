@@ -49,16 +49,16 @@ public class Game
         // create the rooms
 
         eingangshalle = new Room("Du befindest dich in der Eingangshalle",null,null,true);
-        schlossgarten = new Room("Du befindest dich im Schlossgarten","Tom",null,true);
-        kueche = new Room("Du befindest dich in der Küche",null,"BROT",false);
-        schlafzimmer = new Room("Du befindest dich im Schlafzimmer",null,"RUCKSACK",true); //Rucksack hinzugefügt
-        badezimmer = new Room("Du befindest dich im Badezimmer",null,null,true);
-        keller = new Room("Du befindest dich im Keller",null,null,true);
-        vorratskammer = new Room("Du befindest dich in der Vorratskammer",null,null,true);
-        kickerraum = new Room("Du befindest dich im Kickerraum",null,null,false);
+        schlossgarten = new Room("Du befindest dich im Schlossgarten",null,"KLEEBLATT",true);
+        kueche = new Room("Du befindest dich in der Küche","HERD","RUCKSACK",false);
+        schlafzimmer = new Room("Du befindest dich im Schlafzimmer",null,null,true); //Rucksack hinzugefügt
+        badezimmer = new Room("Du befindest dich im Badezimmer",null,"HUFEISEN",true);
+        keller = new Room("Du befindest dich im Keller","Türsteher",null,true);
+        vorratskammer = new Room("Du befindest dich in der Vorratskammer","BETTLER","GEPÖKELTER SCHWEINERÜCKEN",true);
+        kickerraum = new Room("Du befindest dich im Kickerraum","DUC DER KICKERMAN",null,false);
         flur = new Room("Du befindest dich im Flur in der ersten Etage",null,null,true);
-        zielraum = new Room("Du befindest dich im Zielraum",null,null,false);
-        werkstatt = new Room("Du befindest dich in der Werkstatt",null,null,true);
+        zielraum = new Room("Du befindest dich im Zielraum","PRINZESSIN",null,false);
+        werkstatt = new Room("Du befindest dich in der Werkstatt","WERKBANK",null,true);
         terrasse = new Room("Du befindest dich auf der Terrasse",null,null,true);
 
         
