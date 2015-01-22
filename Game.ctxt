@@ -34,5 +34,5 @@ comment7.text=\ \r\n\ "Quit"\ was\ entered.\ Check\ the\ rest\ of\ the\ command\
 comment8.params=command
 comment8.target=java.lang.String\ auftrag(Command)
 comment9.params=command
-comment9.target=java.lang.String\ sprechen(Command)
+comment9.target=java.lang.String\ interagieren(Command)
 numComments=14

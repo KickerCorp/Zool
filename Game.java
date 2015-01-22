@@ -193,8 +193,8 @@ public class Game
             result = quit(command);
         else if (commandWord.equals("AUFTRAG"))
             result = auftrag(command);
-        else if (commandWord.equals("SPRICH"))      
-            result = sprechen(command);
+        else if (commandWord.equals("INTERACT"))      
+            result = interagieren(command);
         else if (commandWord.equals("NIMM"))        
             result = nehmen(command);
         else if (commandWord.equals("INVENTAR"))
@@ -280,7 +280,7 @@ public class Game
         return result;
     }
 
-    private String sprechen(Command command){
+    private String interagieren(Command command){
         String result = currentRoom.getAnswerOfThePersonInThisRoom();
         return result;
     }
