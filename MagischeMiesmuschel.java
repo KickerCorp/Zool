@@ -1,0 +1,78 @@
+import java.util.*;
+/**
+ * This class implements a technical support system. It is the top
+ * level class in this project. The support system communicates via
+ * text input/output in the text terminal.
+ * 
+ * This class uses an object of class InputReader to read input from
+ * the user, and an object of class Responder to generate responses.
+ * It contains a loop that repeatedly reads input and generates output
+ * until the users wants to leave.
+ * 
+ * @author     Michael Kölling and David J. Barnes
+ * @version    0.1 (2011.07.31)
+ */
+public class MagischeMiesmuschel
+{
+   public InputReader reader;
+    private Responder responder;
+    
+    
+    /**
+     * Creates a technical support system.
+     */
+    public MagischeMiesmuschel()
+    {
+        reader = new InputReader();
+        responder = new Responder();
+    }
+
+    /**
+     * Start the technical support system. This will print a welcome
+     * message and enter into a dialog with the user, until the user
+     * ends the dialog.
+     */
+    public void start()
+    {
+        boolean finished = false;
+
+        printWelcome();
+
+        while(!finished) {
+            HashSet<String> input = reader.getInput();
+
+            if(input.contains("ZURÜCKLEGEN")) {
+                finished = true;
+            }
+            else {
+                String response = responder.generateResponse(input);
+                System.out.println(response);
+            }
+        }
+        printGoodbye();
+    }
+
+    /**
+     * Print a welcome message to the screen.
+     */
+    private void printWelcome()
+    {
+        System.out.println("An der Muschel hängt eine Schnur - du ziehst sie.");
+        System.out.println("Während sich die Schnur langsam wieder zurückzieht, ertönt aus der Muschel:");
+        System.out.println("'Ich bin eine magische Miesmuschel'");
+        System.out.println("'Stelle eine Ja/Nein Frage und ziehe an der Schnur!'");
+        System.out.println("Wenn du fertig bist kannst du die Muschel 'zurücklegen'");
+    }
+
+    /**
+     * Print a good-bye message to the screen.
+     */
+    private void printGoodbye()
+    {
+        System.out.println("Du hast die Muschel zurückgelegt");
+    }
+   
+   
+}
+
+
