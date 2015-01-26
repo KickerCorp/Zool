@@ -16,10 +16,11 @@ import java.util.*;
 public class Room 
 {
   public String description;
-  private HashMap<String, Room> exits;
-  private Person person;
+  private HashMap<String, Room> exits;  
   private String item;
   private boolean open;
+  //jeder Raum hat nun eine Arraylist of Persons 
+  private ArrayList<Person> persons;
  
 
     /**
@@ -28,15 +29,15 @@ public class Room
      * "an open court yard".
      * @param description The room's description.
      */
-    public Room(String description, String personName, String item, boolean open) 
+    public Room(String description, Person personName, String item, boolean open) 
     {
+        persons = new ArrayList<>();
         this.description = description;
         exits = new HashMap<>();
          if(personName != null){     
-        person = new Person(personName);
-        person.setAnswersAndItem(personName);
+        persons.add(personName);        
        } 
-       else{person =null;}
+       
          if(item != null){    
         this.item = item;
        } 
@@ -58,8 +59,11 @@ public class Room
     }
     
     public String getPersonName(){
-        if (person == null){return "NICHTS";}
-       else{return person.getName();}
+      String result = "";
+        if (persons.isEmpty()){return "NICHTS";}
+       else{for(Person p : persons){
+           result += p.getName();
+        }return result;}
     }
     
     public String getItemName(){
@@ -104,9 +108,13 @@ public class Room
         return nextRoom;
     }
     
-    public String getAnswerOfThePersonInThisRoom (){
-        if(person == null){return "Hier ist niemand mit dem du sprechen könntest!";}   
-        else {return person.getFirstAnswer();}
+   public String getAnswerOfThePersonInThisRoom(){
+        String result = null;
+        if(persons.isEmpty()){return "Hier ist niemand mit dem du sprechen könntest!";}   
+        else {
+            for (Person p : persons){
+                result += p.getFirstAnswer() + "\n";
+            }return result;}
     }
     
     public boolean isOpen(){
@@ -123,6 +131,10 @@ public class Room
     public String getDescription()
     {
         return description;
+    }
+    public void addPerson(String name){
+        //eine Person hinzufügen
+        persons.add(new Person("name"));
     }
     /**
      * @return All exits of the room.

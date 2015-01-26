@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.params=description\ personName\ item\ open
-comment0.target=Room(java.lang.String,\ java.lang.String,\ java.lang.String,\ boolean)
+comment0.target=Room(java.lang.String,\ Person,\ java.lang.String,\ boolean)
 comment0.text=\r\n\ Create\ a\ room\ described\ "description".\ Initially,\ it\ has\r\n\ no\ exits.\ "description"\ is\ something\ like\ "a\ kitchen"\ or\r\n\ "an\ open\ court\ yard".\r\n\ @param\ description\ The\ room's\ description.\r\n
 comment1.params=direction\ roomName
 comment1.target=void\ setExits(java.lang.String,\ Room)
@@ -8,6 +8,8 @@ comment1.text=\r\n\ Define\ the\ exits\ of\ this\ room.\ \ Every\ direction\ eit
 comment10.params=
 comment10.target=java.lang.String\ getDescription()
 comment10.text=\r\n\ @return\ The\ description\ of\ the\ room.\r\n
+comment11.params=name
+comment11.target=void\ addPerson(java.lang.String)
 comment2.params=
 comment2.target=java.lang.String\ getPersonName()
 comment3.params=
@@ -24,4 +26,4 @@ comment8.params=
 comment8.target=boolean\ isOpen()
 comment9.params=
 comment9.target=void\ setOpen()
-numComments=11
+numComments=12

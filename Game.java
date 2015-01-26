@@ -38,28 +38,24 @@ public class Game
         Inventar = new Inventory();
 
     }
-
-    /**
-     * Create all the rooms and link their exits together.
-     */
-
+    
     public void createRooms()
     {
         Room eingangshalle, schlossgarten, kueche, terrasse, schlafzimmer,flur, badezimmer, keller, vorratskammer, kickerraum, werkstatt, zielraum;
-
+        Person herd, bettler, duc, prinzessin, werkbank, türsteher;
         // create the rooms
 
         eingangshalle = new Room("Du befindest dich in der Eingangshalle",null,"RUCKSACK",true);
         schlossgarten = new Room("Du befindest dich im Schlossgarten",null,"KLEEBLATT",true);
-        kueche = new Room("Du befindest dich in der Küche","HERD",null,false);
+        kueche = new Room("Du befindest dich in der Küche", herd =  new Person("HERD"),null,false);
         schlafzimmer = new Room("Du befindest dich im Schlafzimmer",null,null,true); //Rucksack hinzugefügt
         badezimmer = new Room("Du befindest dich im Badezimmer",null,"HUFEISEN",true);
-        keller = new Room("Du befindest dich im Keller","Türsteher",null,true);
-        vorratskammer = new Room("Du befindest dich in der Vorratskammer","BETTLER","GEPÖKELTER SCHWEINERÜCKEN",true);
-        kickerraum = new Room("Du befindest dich im Kickerraum","DUC DER KICKERMAN",null,false);
+        keller = new Room("Du befindest dich im Keller", türsteher = new Person("Türsteher"),null,true);
+        vorratskammer = new Room("Du befindest dich in der Vorratskammer",bettler = new Person("BETTLER"),"GEPÖKELTER SCHWEINERÜCKEN",true);
+        kickerraum = new Room("Du befindest dich im Kickerraum",duc = new Person("DUC DER KICKERMAN"),null,false);
         flur = new Room("Du befindest dich im Flur in der ersten Etage",null,null,true);
-        zielraum = new Room("Du befindest dich im Zielraum","PRINZESSIN",null,false);
-        werkstatt = new Room("Du befindest dich in der Werkstatt","WERKBANK",null,true);
+        zielraum = new Room("Du befindest dich im Zielraum",prinzessin = new Person("PRINZESSIN"),null,false);
+        werkstatt = new Room("Du befindest dich in der Werkstatt", werkbank = new Person("WERKBANK"),null,true);
         terrasse = new Room("Du befindest dich auf der Terrasse",null,null,true);
 
         
@@ -105,6 +101,11 @@ public class Game
         zielraum.setExits("SÜDEN", schlossgarten);
         currentRoom = eingangshalle;  // start game outside
     }
+    /**
+     * Create all the rooms and link their exits together.
+     */
+
+   
     
     public String getcurrentRoomPerson(){
     
@@ -209,6 +210,8 @@ public class Game
             result = showInventar();
         else if (commandWord.equals("KARTE"))
             result = showMap();
+            else if (commandWord.equals("INTERACT"))
+            result = interact();
         return result;
 
     }
@@ -329,6 +332,26 @@ public class Game
     public static void main(String[] args){
         Game game = new Game();
         game.play();
+    }
+    
+    public String interact(){
+        String result = ""; 
+        //Wenn in dem Raum, der Türsteher steht, wird das PaperScissorRockGame gestartet!
+        if(currentRoom.getPersonName().equals("Türsteher")){
+            System.out.println("\nVor der Kellertür steht ein unglaublich breiter Türsteher.\nHier kommst du nur vorbei, wenn du ihn im Schere-Stein-Papier besiegt!\nSchreibe [Stein],[Schere] oder [Papier] um zu spielen\nUm aufzugeben, schreibe [Mist].");
+            PaperScissorRockEngine engine = new PaperScissorRockEngine();
+            result += engine.startPlaying(parser.getCommand(), 0);
+            //solange man verliert, läuft das Spiel weiter.
+            while(result.contains("verlierst")){
+                result = "";
+                
+                result += engine.startPlaying(parser.getCommand(), 0);
+            }
+            return result;
+        }
+        
+        result += "Hier ist nichts und niemand zum Interagieren";
+        return result;
     }
 
     public String showMap(){
