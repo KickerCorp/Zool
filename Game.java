@@ -24,6 +24,7 @@ public class Game
     private Assignments assignment;
     private Inventory Inventar;
     private Interaction interAct;
+    private Room lastRoom;
 
     /**
      * Create the game and initialise its internal map.
@@ -99,7 +100,8 @@ public class Game
         schlafzimmer.setExits("WESTEN", flur);
         kickerraum.setExits("UNTEN", flur);
         zielraum.setExits("SÜDEN", schlossgarten);
-        currentRoom = eingangshalle;  // start game outside
+        currentRoom = eingangshalle; 
+        lastRoom = eingangshalle;// start game outside
     }
     /**
      * Create all the rooms and link their exits together.
@@ -212,6 +214,8 @@ public class Game
             result = showMap();
             else if (commandWord.equals("INTERACT"))
             result = interact();
+             else if (commandWord.equals("ZURÜCK"))
+            result = zurück();
         return result;
 
     }
@@ -244,7 +248,7 @@ public class Game
         }
         String result = "";
         //speichert aktuellen Raum lokal
-        Room lastRoom = currentRoom;
+        lastRoom = currentRoom;
 
         //direction ist zweites eingegebens Wort
         String direction = command.getSecondWord();
@@ -290,7 +294,14 @@ public class Game
         String result = assignment.getCurrentTask();
         return result;
     }
-
+    
+    private String zurück(){
+        String result = "";
+        currentRoom = lastRoom;
+        result += currentRoom.getDescription()+"\n" + "\n" + "zur Verfügung stehende Ausgänge: " + currentRoom.getExits();
+        return result;
+    }
+    
     private String interagieren(Command command){
         interAct = new Interaction(this.Inventar);
         String person = currentRoom.getPersonName();
