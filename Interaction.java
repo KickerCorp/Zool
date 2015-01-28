@@ -36,9 +36,14 @@ public class Interaction
         if (Inventar.removeItem("KLEEBLATT")== true && Inventar.removeItem("HUFEISEN")== true){
             Inventar.addToInventory("GLÜCKSBRINGER");
             return "Du hast einen Glücksbringer gebaut";
-        }
-        else{return "Du hast NICHT die richtigen Materialien!";}
-    }
+           }
+       else if (Inventar.removeItem("MAGISCHES WASSER")== true && Inventar.removeItem("MIESMUSCHEL")== true){
+            Inventar.addToInventory("MAGISCHE MIESMUSCHEL");
+            return "Du hast einen Magische MIESMUSCHEL gebaut";
+           }
 
-}
+       else{return "Du hast NICHT die richtigen Materialien!";}
     
+    
+  }
+}    

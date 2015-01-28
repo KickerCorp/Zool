@@ -49,9 +49,9 @@ public class Game
         eingangshalle = new Room("Du befindest dich in der Eingangshalle",null,"RUCKSACK",true);
         schlossgarten = new Room("Du befindest dich im Schlossgarten",null,"KLEEBLATT",true);
         kueche = new Room("Du befindest dich in der Küche", herd =  new Person("HERD"),null,true);
-        schlafzimmer = new Room("Du befindest dich im Schlafzimmer",null,null,true); //Rucksack hinzugefügt
-        badezimmer = new Room("Du befindest dich im Badezimmer",null,"HUFEISEN",true);
-        keller = new Room("Du befindest dich im Keller", türsteher = new Person("Türsteher"),null,true);
+        schlafzimmer = new Room("Du befindest dich im Schlafzimmer",null,"HUFEISEN",true); //Rucksack hinzugefügt
+        badezimmer = new Room("Du befindest dich im Badezimmer",null,"MIESMUSCHEL",true);
+        keller = new Room("Du befindest dich im Keller", türsteher = new Person("Türsteher"),"MAGISCHES WASSER",true);
         vorratskammer = new Room("Du befindest dich in der Vorratskammer",bettler = new Person("BETTLER"),"GEPÖKELTER SCHWEINERÜCKEN",false);
         kickerraum = new Room("Du befindest dich im Kickerraum",duc = new Person("DUC DER KICKERMAN"),null,false);
         flur = new Room("Du befindest dich im Flur in der ersten Etage",null,null,true);
@@ -208,8 +208,8 @@ public class Game
             result = showInventar();
         else if (commandWord.equals("KARTE"))
             result = showMap();
-        //else if (commandWord.equals("INTERACT"))
-        //  result = interact();
+        else if (commandWord.equals("INTERACT"))
+            result = interagieren();
         else if (commandWord.equals("ZURÜCK"))
             result = zurück();
         return result;
@@ -303,7 +303,7 @@ public class Game
         return result;
     }
 
-    private String interagieren(Command command){
+    private String interagieren(){
         interAct = new Interaction(this.Inventar);
         String person = currentRoom.getPersonName();
         String result = interAct.interactWithIt(person);
