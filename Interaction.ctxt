@@ -2,11 +2,4 @@
 comment0.params=inventar
 comment0.target=Interaction(Inventory)
 comment0.text=\r\n\ Constructor\ for\ objects\ of\ class\ Interaction\r\n
-comment1.params=item
-comment1.target=java.lang.String\ interactWithIt(java.lang.String)
-comment1.text=\r\n\ An\ example\ of\ a\ method\ -\ replace\ this\ comment\ with\ your\ own\r\n\ \r\n\ @param\ \ y\ \ \ a\ sample\ parameter\ for\ a\ method\r\n\ @return\ \ \ \ \ the\ sum\ of\ x\ and\ y\ \r\n
-comment2.params=
-comment2.target=java.lang.String\ buildLuckItem()
-comment3.params=
-comment3.target=java.lang.String\ cooking()
-numComments=4
+numComments=1

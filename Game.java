@@ -225,8 +225,8 @@ public class Game
           result = currentRoom.lookAround();
         else if (commandWord.equals("ZURÜCK"))
             result = zurück();
-             else if (commandWord.equals("INTERACT"))
-            result = interagieren(command);
+            /* else if (commandWord.equals("INTERACT"))
+            result = interagieren(command);*/
         return result;
 
     }
@@ -317,7 +317,7 @@ public class Game
         result += currentRoom.getDescription()+"\n" + "\n" + "zur Verfügung stehende Ausgänge: " + currentRoom.getExits();
         return result;
     }
-
+/*
     private String interagieren(Command command){
         interAct = new Interaction(this.inventar);
         String item = currentRoom.getItemName();
@@ -325,7 +325,7 @@ public class Game
         return result;
 
     }
-
+*/
     private String nehmen(Command command){
         if(!command.hasSecondWord()) {
             // if there is no second word, we don't know where to go...
