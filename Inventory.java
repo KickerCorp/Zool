@@ -29,8 +29,8 @@ public class Inventory
                     Inventar.add(item);
                     ObjectsInInventory++;
                         //Rucksack wird nicht mehr im Inventar angezeigt.
-                        if(Inventar.contains("Rucksack")){
-                            Inventar.remove("Rucksack");
+                        if(Inventar.contains("RUCKSACK")){
+                            removeItem("RUCKSACK");
                         } 
                 }
                 else{System.out.println("Dein Rucksack ist schon voll!");}
@@ -42,15 +42,7 @@ public class Inventory
     
     public boolean removeItem(String item){
        boolean returned = false;    
-       Iterator<String> itr = Inventar.iterator();
-       while (itr.hasNext()) {
-           String element = itr.next();
-           if(element.equals(item)){
-               Inventar.remove(element);
-               ObjectsInInventory += ObjectsInInventory -1;
-               returned =true;
-            }
-        }
+       Inventar.remove(item);
          return returned;
         }
     

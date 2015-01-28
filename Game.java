@@ -48,7 +48,7 @@ public class Game
 
         eingangshalle = new Room("Du befindest dich in der Eingangshalle",null,"RUCKSACK",true);
         schlossgarten = new Room("Du befindest dich im Schlossgarten",null,"KLEEBLATT",true);
-        kueche = new Room("Du befindest dich in der Küche", herd =  new Person("HERD"),null,false);
+        kueche = new Room("Du befindest dich in der Küche", herd =  new Person("HERD"),null,true);
         schlafzimmer = new Room("Du befindest dich im Schlafzimmer",null,null,true); //Rucksack hinzugefügt
         badezimmer = new Room("Du befindest dich im Badezimmer",null,"HUFEISEN",true);
         keller = new Room("Du befindest dich im Keller", türsteher = new Person("Türsteher"),null,true);
