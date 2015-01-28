@@ -322,8 +322,11 @@ public class Game
 
     private String benutzen(Command command){
         interAct = new Interaction(this.inventar);
+        if(!command.hasSecondWord()) {
+                return "Was willst du benutzen?";
+            }
         String item = currentRoom.getItemName();
-        String result = interAct.interactWithIt(item, parser.getCommand());
+        String result = interAct.interactWithIt(item);
         return result;
 
     }

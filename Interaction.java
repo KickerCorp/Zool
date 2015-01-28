@@ -25,29 +25,27 @@ public class Interaction
      * @param  y   a sample parameter for a method
      * @return     the sum of x and y 
      */
-     public String interactWithIt(String item, Command command ){
+     public String interactWithIt(String item){
         String result = null;    
-        if(item.contains("WERKBANK")){result = benutzen(command);}
+        if(item.contains("WERKBANK")){result = benutzen();}
         else if(item.contains("HERD")){result = cooking();}
-        else{result = "Ist niemand der mit dir sprechen will.";}
+        else{result = "Das kann man hier nicht benutzen.";}
         return result;
         
     }
 
     
-    public String benutzen(Command command){
+    public String benutzen(){
         String result = "";
                     System.out.println("Du benutzt die WERKBANK. Du kannst hier zwei Items kombinieren.");
                     System.out.println("Welche Gegenstände möchtest du kombinieren?");
                     System.out.println("Gib [GEGENSTAND1] [] [GEGENSTAND2] ein");
         
-            if(!command.hasSecondWord()) {
-                return "Was willst du benutzen?";
-            }
+            
                             //hier könnt ihr die jeweiligen Methoden für die Objekte reinschreiben
                 
                 //Methode der Magischen Miesmuschel
-            if(command.getSecondWord().equals("MAGISCHE MIESMUSCHEL")) {
+           /** if(newCommand.getSecondWord().equals("MAGISCHE MIESMUSCHEL")) {
                     if(inventar.contains("MAGISCHE MIESMUSCHEL")){
                         MagischeMiesmuschel muschel = new MagischeMiesmuschel();
                         //MagischeMiesmuschel.play();
@@ -56,7 +54,7 @@ public class Interaction
             }
             
                 //Methode der Glückskette
-            if(command.getSecondWord().equals("GLÜCKSKETTE")){
+            if(newCommand.getSecondWord().equals("GLÜCKSKETTE")){
                     if(inventar.contains("GLÜCKSKETTE")){
                         //increaseWinRate(); // noch nicht implementiert!
                         System.out.println("Das Glück steht nun öfters an deiner Seite");
@@ -65,20 +63,10 @@ public class Interaction
                        System.out.println("Dir fehlt ein oder mehrere Items zum kombinieren.");
                             }
                         }
-                        
-               
-               
-               
-                //Methode der Werkbank
-                
-                
-                    System.out.println("Du benutzt die WERKBANK. Du kannst hier zwei Items kombinieren.");
-                    System.out.println("Welche Gegenstände möchtest du kombinieren?");
-                    System.out.println("Gib [GEGENSTAND1] [] [GEGENSTAND2] ein");
-                    
-                    // Glückbringer und MagischeMiesmuschel bauen
-                       if(inventar.contains("KLEEBLATT")&&inventar.contains("HUFEISEN")){
-                       if(command.getCommandWord().equals("KLEEBLATT")&&command.getSecondWord().equals("HUFEISEN")){
+       
+                        // Glückbringer und MagischeMiesmuschel bauen
+                    if(inventar.contains("KLEEBLATT")&&inventar.contains("HUFEISEN")){
+                       if(newCommand.getCommandWord().equals("KLEEBLATT")&&newCommand.getSecondWord().equals("HUFEISEN")){
                             inventar.removeItem("KLEEBLATT");
                             inventar.removeItem("HUFEISEN");
                             inventar.addToInventory("GLÜCKSBRINGER");
@@ -87,7 +75,7 @@ public class Interaction
                     }
                     
                        else if(inventar.contains("WASSER")&&inventar.contains("MIESMUSCHEL")){
-                        if((command.getCommandWord().equals("WASSER")&&command.getSecondWord().equals("MIESMUSCHEL")) || (command.getCommandWord().equals("WASSER") && command.getSecondWord().equals("MIESMUSCHEL"))){
+                        if((newCommand.getCommandWord().equals("WASSER")&&newCommand.getSecondWord().equals("MIESMUSCHEL")) || (newCommand.getCommandWord().equals("WASSER") && newCommand.getSecondWord().equals("MIESMUSCHEL"))){
                             inventar.removeItem("WASSER"); 
                             inventar.removeItem("MIESMUSCHEL"); 
                             inventar.addToInventory("MAGISCHEMIESMUSCHEL");
@@ -98,7 +86,7 @@ public class Interaction
                         }
                     
                         
-                      }
+                      }**/
                     
                     return result;
                 }
