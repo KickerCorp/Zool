@@ -39,7 +39,7 @@ public class Game
         Inventar = new Inventory();
 
     }
-    
+
     public void createRooms()
     {
         Room eingangshalle, schlossgarten, kueche, terrasse, schlafzimmer,flur, badezimmer, keller, vorratskammer, kickerraum, werkstatt, zielraum;
@@ -52,14 +52,12 @@ public class Game
         schlafzimmer = new Room("Du befindest dich im Schlafzimmer",null,null,true); //Rucksack hinzugefügt
         badezimmer = new Room("Du befindest dich im Badezimmer",null,"HUFEISEN",true);
         keller = new Room("Du befindest dich im Keller", türsteher = new Person("Türsteher"),null,true);
-        vorratskammer = new Room("Du befindest dich in der Vorratskammer",bettler = new Person("BETTLER"),"GEPÖKELTER SCHWEINERÜCKEN",true);
+        vorratskammer = new Room("Du befindest dich in der Vorratskammer",bettler = new Person("BETTLER"),"GEPÖKELTER SCHWEINERÜCKEN",false);
         kickerraum = new Room("Du befindest dich im Kickerraum",duc = new Person("DUC DER KICKERMAN"),null,false);
         flur = new Room("Du befindest dich im Flur in der ersten Etage",null,null,true);
         zielraum = new Room("Du befindest dich im Zielraum",prinzessin = new Person("PRINZESSIN"),null,false);
         werkstatt = new Room("Du befindest dich in der Werkstatt", werkbank = new Person("WERKBANK"),null,true);
         terrasse = new Room("Du befindest dich auf der Terrasse",null,null,true);
-
-        
 
         rooms[0] = eingangshalle;
         rooms[1] = terrasse;
@@ -103,17 +101,15 @@ public class Game
         currentRoom = eingangshalle; 
         lastRoom = eingangshalle;// start game outside
     }
+
     /**
      * Create all the rooms and link their exits together.
      */
 
-   
-    
     public String getcurrentRoomPerson(){
-    
         return currentRoom.getPersonName();
     }
-    
+
     /**
      *  Main play routine.  Loops until end of play.
      */
@@ -203,18 +199,18 @@ public class Game
         else if (commandWord.equals("AUFTRAG"))
             result = auftrag(command);
         /*else if (commandWord.equals("BENUTZE"))      
-            result = benutzen(command); //benutzen hinzugefügt
+        result = benutzen(command); //benutzen hinzugefügt
         else if (commandWord.equals("SPRICH"))
-            result = sprechen(command); //sprechen hinzugefügt*/
+        result = sprechen(command); //sprechen hinzugefügt*/
         else if (commandWord.equals("NIMM"))        
             result = nehmen(command);
         else if (commandWord.equals("INVENTAR"))
             result = showInventar();
         else if (commandWord.equals("KARTE"))
             result = showMap();
-            else if (commandWord.equals("INTERACT"))
-            result = interact();
-             else if (commandWord.equals("ZURÜCK"))
+        //else if (commandWord.equals("INTERACT"))
+        //  result = interact();
+        else if (commandWord.equals("ZURÜCK"))
             result = zurück();
         return result;
 
@@ -256,10 +252,15 @@ public class Game
         //Raumwechsel wenn möglich
         Room nextRoom = currentRoom.changeRoom(direction);
         this.currentRoom = nextRoom;
+
         // wenn nicht möglich
         if(currentRoom == null){
             result += "Du rennst gegen eine Wand und hast furchtbare Schmerzen.\nDeine Abenteuerlust aber besiegt den Schmerz.\nIn dieser Richtung gibt es keine Tür.\n";
             currentRoom = lastRoom;
+            return result;
+        }
+        if(currentRoom == rooms[9] && !currentRoom.isOpen()){
+            result +=  schereSteinPapier();
             return result;
         }
         if(!currentRoom.isOpen()){
@@ -294,20 +295,20 @@ public class Game
         String result = assignment.getCurrentTask();
         return result;
     }
-    
+
     private String zurück(){
         String result = "";
         currentRoom = lastRoom;
         result += currentRoom.getDescription()+"\n" + "\n" + "zur Verfügung stehende Ausgänge: " + currentRoom.getExits();
         return result;
     }
-    
+
     private String interagieren(Command command){
         interAct = new Interaction(this.Inventar);
         String person = currentRoom.getPersonName();
         String result = interAct.interactWithIt(person);
         return result;
-      
+
     }
 
     private String nehmen(Command command){
@@ -344,24 +345,29 @@ public class Game
         Game game = new Game();
         game.play();
     }
-    
-    public String interact(){
+
+    public String schereSteinPapier(){
         String result = ""; 
         //Wenn in dem Raum, der Türsteher steht, wird das PaperScissorRockGame gestartet!
-        if(currentRoom.getPersonName().equals("Türsteher")){
-            System.out.println("\nVor der Kellertür steht ein unglaublich breiter Türsteher.\nHier kommst du nur vorbei, wenn du ihn im Schere-Stein-Papier besiegt!\nSchreibe [Stein],[Schere] oder [Papier] um zu spielen\nUm aufzugeben, schreibe [Mist].");
-            PaperScissorRockEngine engine = new PaperScissorRockEngine();
-            result += engine.startPlaying(parser.getCommand(), 0);
-            //solange man verliert, läuft das Spiel weiter.
-            while(result.contains("verlierst")){
-                result = "";
-                
-                result += engine.startPlaying(parser.getCommand(), 0);
-            }
-            return result;
+
+        System.out.println("\nVor der Kellertür steht ein unglaublich breiter Türsteher.\nHier kommst du nur vorbei, wenn du ihn im Schere-Stein-Papier besiegt!\nSchreibe [Stein],[Schere] oder [Papier] um zu spielen\nUm aufzugeben, schreibe [Mist].");
+        PaperScissorRockEngine engine = new PaperScissorRockEngine();
+        result += engine.startPlaying(parser.getCommand(), 30);
+        //solange man verliert, läuft das Spiel weiter.
+        while(result.contains("verlierst")){
+            result = "";
+
+            result += engine.startPlaying(parser.getCommand(), 30);
         }
-        
-        result += "Hier ist nichts und niemand zum Interagieren";
+        if(result.contains("gewinnst")){
+            currentRoom.setOpen();
+            result += "\n" + currentRoom.getDescription()+"\n" + "\n" + "zur Verfügung stehende Ausgänge: " + currentRoom.getExits();
+        }
+
+        if(result.contains("Klatsche")){
+            currentRoom = lastRoom;
+            result += "\n" + currentRoom.getDescription()+"\n" + "\n" + "zur Verfügung stehende Ausgänge: " + currentRoom.getExits();
+        }
         return result;
     }
 
@@ -417,7 +423,6 @@ public class Game
 
         }
 
-        
         return result;
     }
 }
