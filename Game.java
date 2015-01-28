@@ -51,16 +51,16 @@ public class Game
         // create the rooms
 
         eingangshalle = new Room("Du befindest dich in der Eingangshalle",null, null,true);
-        schlossgarten = new Room("Du befindest dich im Schlossgarten",null,kleeblatt = new Item("KLEEBLATT"),true);
-        kueche = new Room("Du befindest dich in der Küche", null,herd = new Item("HERD"),false);
+        schlossgarten = new Room("Du befindest dich im Schlossgarten",null,kleeblatt = new Item("KLEEBLATT", false),true);
+        kueche = new Room("Du befindest dich in der Küche", null,herd = new Item("HERD", true),false);
         schlafzimmer = new Room("Du befindest dich im Schlafzimmer",null,null,true); //Rucksack hinzugefügt
-        badezimmer = new Room("Du befindest dich im Badezimmer",null,hufeisen = new Item("HUFEISEN"),true);
+        badezimmer = new Room("Du befindest dich im Badezimmer",null,hufeisen = new Item("HUFEISEN", false),true);
         keller = new Room("Du befindest dich im Keller", türsteher = new Person("Türsteher"),null,true);
-        vorratskammer = new Room("Du befindest dich in der Vorratskammer",bettler = new Person("BETTLER"),gepökelterSchweinerücken = new Item("GEPÖKELTER SCHWEINERÜCKEN"),false);
+        vorratskammer = new Room("Du befindest dich in der Vorratskammer",bettler = new Person("BETTLER"),gepökelterSchweinerücken = new Item("GEPÖKELTER SCHWEINERÜCKEN", false),false);
         kickerraum = new Room("Du befindest dich im Kickerraum",duc = new Person("DUC DER KICKERMAN"),null,false);
         flur = new Room("Du befindest dich im Flur in der ersten Etage",null,null,true);
         zielraum = new Room("Du befindest dich im Zielraum",prinzessin = new Person("PRINZESSIN"),null,false);
-        werkstatt = new Room("Du befindest dich in der Werkstatt", null,werkbank = new Item("WERKBANK"),true);
+        werkstatt = new Room("Du befindest dich in der Werkstatt", null,werkbank = new Item("WERKBANK", true),true);
         terrasse = new Room("Du befindest dich auf der Terrasse",null,null,true);
 
         rooms[0] = eingangshalle;
@@ -80,7 +80,9 @@ public class Game
         while(i == 3){
             i = rand.nextInt(9);
         }
-        rooms[0].addItem("RUCKSACK"); 
+        rooms[0].addItem("RUCKSACK", false);
+        rooms[0].addItem("WASSER", false); 
+        rooms[0].addItem("MIESMUSCHEL", false); 
        
         
         
@@ -211,10 +213,10 @@ public class Game
             result = quit(command);
         else if (commandWord.equals("AUFTRAG"))
             result = auftrag(command);
-        /*else if (commandWord.equals("BENUTZE"))      
+        else if (commandWord.equals("BENUTZE"))      
         result = benutzen(command); //benutzen hinzugefügt
-        else if (commandWord.equals("SPRICH"))
-        result = sprechen(command); //sprechen hinzugefügt*/
+        //else if (commandWord.equals("SPRICH"))
+        //result = sprechen(command); //sprechen hinzugefügt*/
         else if (commandWord.equals("NIMM"))        
             result = nehmen(command);
         else if (commandWord.equals("INVENTAR"))
@@ -317,15 +319,15 @@ public class Game
         result += currentRoom.getDescription()+"\n" + "\n" + "zur Verfügung stehende Ausgänge: " + currentRoom.getExits();
         return result;
     }
-/*
-    private String interagieren(Command command){
+
+    private String benutzen(Command command){
         interAct = new Interaction(this.inventar);
         String item = currentRoom.getItemName();
-        String result = interAct.interactWithIt(item);
+        String result = interAct.interactWithIt(item, parser.getCommand());
         return result;
 
     }
-*/
+
     private String nehmen(Command command){
         if(!command.hasSecondWord()) {
             // if there is no second word, we don't know where to go...

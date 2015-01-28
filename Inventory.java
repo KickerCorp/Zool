@@ -23,44 +23,49 @@ public class Inventory
     }
 
     public void addToInventory(String item){
-                
-            
-                if(!InventarIsFull){
-                    Inventar.add(item);
-                    ObjectsInInventory++;
-                        //Rucksack wird nicht mehr im Inventar angezeigt.
-                        if(Inventar.contains("RUCKSACK")){
-                            removeItem("RUCKSACK");
-                            
-                        } 
-                }
-                else{System.out.println("Dein Rucksack ist schon voll!");}
-            
-                if(ObjectsInInventory == 3){InventarIsFull = true;}
-                else{InventarIsFull = false;}
-            
+
+        if(!InventarIsFull){
+            Inventar.add(item);
+            ObjectsInInventory++;
+            //Rucksack wird nicht mehr im Inventar angezeigt.
+            if(Inventar.contains("RUCKSACK")){
+                removeItem("RUCKSACK");
+
+            } 
         }
-    
+        else{System.out.println("Dein Rucksack ist schon voll!");}
+
+        if(ObjectsInInventory == 3){InventarIsFull = true;}
+        else{InventarIsFull = false;}
+
+    }
+
     public boolean removeItem(String item){
-       boolean returned = false;    
-      if (Inventar.contains(item)){
-         Inventar.remove(item);
-         ObjectsInInventory--;
-         returned = true;
-         return returned;
+        boolean returned = false;    
+        if (Inventar.contains(item)){
+            Inventar.remove(item);
+            ObjectsInInventory--;
+            returned = true;
+            return returned;
         }
-         return returned;
-        }
-    
+        return returned;
+    }
+
     public String showInventory(){
         String result = "In deinem Rucksack befinden sich: ";   
         for (String Item : Inventar){ 
-         result += Item;
-         result += " ";
+            result += Item;
+            result += " ";
         }
         if(Inventar.isEmpty()){
             result = "nichts - Es ist leer!";
         }
         return result;
+    }
+
+    public boolean contains(String n){
+        boolean containing = false;
+        containing = Inventar.contains(n);
+        return containing;
     }
 }

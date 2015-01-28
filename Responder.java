@@ -84,33 +84,30 @@ public class Responder
         responses.add("Ja bitte");
         responses.add("Das klingt sehr vernünftig");
         responses.add("Diesmal nicht");
-        
-        
+
     }
-    
+
     public void fillAnswers()
     {
         answers.put("LEBENS", "Moment ich rechne... 'Zweiundvierzig' ist die Antwort");
     }
-    
+
     public String generateRandomResponse(){
-      
+
         int index = randomGenerator.nextInt(responses.size());
         return responses.get(index);
-}
+    }
 
-public String generateResponse(HashSet<String> words){
- for(String word: words) {
-            String response = answers.get(word);
+    public String generateResponse(String word){
 
-    if(response != null) {
-        return response;
-}
+        String response = answers.get(word);
 
+        if(response != null) {
+            return response;
+        }
 
+        return 
+        generateRandomResponse();
+    }
 }
-return generateRandomResponse();
-}
-}
-
 

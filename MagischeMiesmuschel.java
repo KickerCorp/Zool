@@ -14,7 +14,6 @@ import java.util.*;
  */
 public class MagischeMiesmuschel
 {
-   public InputReader reader;
     private Responder responder;
     
     
@@ -23,7 +22,7 @@ public class MagischeMiesmuschel
      */
     public MagischeMiesmuschel()
     {
-        reader = new InputReader();
+        
         responder = new Responder();
     }
 
@@ -32,16 +31,16 @@ public class MagischeMiesmuschel
      * message and enter into a dialog with the user, until the user
      * ends the dialog.
      */
-    public void start()
+    public void start(Command command)
     {
         boolean finished = false;
 
         printWelcome();
 
         while(!finished) {
-            HashSet<String> input = reader.getInput();
+            String input = command.getCommandWord();
 
-            if(input.contains("ZURÃœCKLEGEN")) {
+            if(input.contains("ZURÜCKLEGEN")) {
                 finished = true;
             }
             else {

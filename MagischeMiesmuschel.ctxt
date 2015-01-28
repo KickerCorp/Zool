@@ -2,8 +2,8 @@
 comment0.params=
 comment0.target=MagischeMiesmuschel()
 comment0.text=\r\n\ Creates\ a\ technical\ support\ system.\r\n
-comment1.params=
-comment1.target=void\ start()
+comment1.params=command
+comment1.target=void\ start(Command)
 comment1.text=\r\n\ Start\ the\ technical\ support\ system.\ This\ will\ print\ a\ welcome\r\n\ message\ and\ enter\ into\ a\ dialog\ with\ the\ user,\ until\ the\ user\r\n\ ends\ the\ dialog.\r\n
 comment2.params=
 comment2.target=void\ printWelcome()

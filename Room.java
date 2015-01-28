@@ -68,6 +68,16 @@ public class Room
         return result;
 
     }
+    
+    public String getFixedItems(){
+          String result = "";
+          for(Item i : items){
+            if(i.isFixed()){
+                result += i.getItem();
+            }
+            }
+            return result;
+    }
 
     public String getItemName(){
         String result = "";
@@ -153,9 +163,9 @@ public class Room
         persons.add(new Person("name"));
     }
 
-    public void addItem(String name){
+    public void addItem(String name, boolean fixed){
         //ein Item hinzufügen
-        items.add(new Item(name));
+        items.add(new Item(name, fixed));
     }
 
     public String lookAround(){

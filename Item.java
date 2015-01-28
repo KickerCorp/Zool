@@ -7,14 +7,19 @@
  */
 public class Item
 {
-    private String itemName;
+   private String itemName;
+    private boolean fixed;
     
-    public Item (String name){
+    public Item (String name, boolean fixed){
         itemName = name;
-        
+        this.fixed = fixed;
     }
     
     public String getItem(){
         return itemName;
+    }
+    
+    public boolean isFixed(){
+        return fixed;
     }
 }
