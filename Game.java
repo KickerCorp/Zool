@@ -1,3 +1,4 @@
+import java.util.*;
 /**
  *  This class is the main class of the "World of Zuul" application. 
  *  "World of Zuul" is a very simple, text based adventure game.  Users 
@@ -25,6 +26,7 @@ public class Game
     private Inventory Inventar;
     private Interaction interAct;
     private Room lastRoom;
+    private Random rand;
 
     /**
      * Create the game and initialise its internal map.
@@ -33,30 +35,32 @@ public class Game
     {
         rooms = new Room[12];
         backpackFound = false;
+        rand = new Random();
         createRooms();
         parser = new Parser();    
         assignment = new Assignments();
         Inventar = new Inventory();
-
+        
     }
 
     public void createRooms()
     {
         Room eingangshalle, schlossgarten, kueche, terrasse, schlafzimmer,flur, badezimmer, keller, vorratskammer, kickerraum, werkstatt, zielraum;
-        Person herd, bettler, duc, prinzessin, werkbank, türsteher;
+        Person bettler, duc, prinzessin,  türsteher;
+        Item rucksack, kleeblatt, hufeisen, gepökelterSchweinerücken, herd, werkbank;
         // create the rooms
 
-        eingangshalle = new Room("Du befindest dich in der Eingangshalle",null,"RUCKSACK",true);
-        schlossgarten = new Room("Du befindest dich im Schlossgarten",null,"KLEEBLATT",true);
-        kueche = new Room("Du befindest dich in der Küche", herd =  new Person("HERD"),null,true);
-        schlafzimmer = new Room("Du befindest dich im Schlafzimmer",null,"HUFEISEN",true); //Rucksack hinzugefügt
-        badezimmer = new Room("Du befindest dich im Badezimmer",null,"MIESMUSCHEL",true);
-        keller = new Room("Du befindest dich im Keller", türsteher = new Person("Türsteher"),"WASSER",true);
-        vorratskammer = new Room("Du befindest dich in der Vorratskammer",bettler = new Person("BETTLER"),"FLEISCH",false);
+        eingangshalle = new Room("Du befindest dich in der Eingangshalle",null, null,true);
+        schlossgarten = new Room("Du befindest dich im Schlossgarten",null,kleeblatt = new Item("KLEEBLATT"),true);
+        kueche = new Room("Du befindest dich in der Küche", null,herd = new Item("HERD"),false);
+        schlafzimmer = new Room("Du befindest dich im Schlafzimmer",null,null,true); //Rucksack hinzugefügt
+        badezimmer = new Room("Du befindest dich im Badezimmer",null,hufeisen = new Item("HUFEISEN"),true);
+        keller = new Room("Du befindest dich im Keller", türsteher = new Person("Türsteher"),null,true);
+        vorratskammer = new Room("Du befindest dich in der Vorratskammer",bettler = new Person("BETTLER"),gepökelterSchweinerücken = new Item("GEPÖKELTER SCHWEINERÜCKEN"),false);
         kickerraum = new Room("Du befindest dich im Kickerraum",duc = new Person("DUC DER KICKERMAN"),null,false);
         flur = new Room("Du befindest dich im Flur in der ersten Etage",null,null,true);
         zielraum = new Room("Du befindest dich im Zielraum",prinzessin = new Person("PRINZESSIN"),null,false);
-        werkstatt = new Room("Du befindest dich in der Werkstatt", werkbank = new Person("WERKBANK"),null,true);
+        werkstatt = new Room("Du befindest dich in der Werkstatt", null,werkbank = new Item("WERKBANK"),true);
         terrasse = new Room("Du befindest dich auf der Terrasse",null,null,true);
 
         rooms[0] = eingangshalle;
@@ -71,6 +75,15 @@ public class Game
         rooms[9] = vorratskammer;
         rooms[10] = kickerraum;
         rooms[11] = zielraum;
+        
+        int i = rand.nextInt(9);
+        while(i == 3){
+            i = rand.nextInt(9);
+        }
+        rooms[i].addItem("RUCKSACK"); 
+       
+        
+        
 
         // initialise room exits
         //alle Himmelsrichtungen großgeschrieben wegen trimUpperCase() in Parser
@@ -208,8 +221,8 @@ public class Game
             result = showInventar();
         else if (commandWord.equals("KARTE"))
             result = showMap();
-        else if (commandWord.equals("INTERACT"))
-            result = interagieren();
+        else if (commandWord.equals("UMSCHAUEN"))
+          result = currentRoom.lookAround();
         else if (commandWord.equals("ZURÜCK"))
             result = zurück();
         return result;
@@ -303,7 +316,7 @@ public class Game
         return result;
     }
 
-    private String interagieren(){
+    private String interagieren(Command command){
         interAct = new Interaction(this.Inventar);
         String person = currentRoom.getPersonName();
         String result = interAct.interactWithIt(person);
@@ -326,7 +339,7 @@ public class Game
                     String result = "Du erhälst ";
                     result += command.getSecondWord();
                     Inventar.addToInventory(command.getSecondWord());
-                    currentRoom.removeItem();
+                    currentRoom.removeItem(command.getSecondWord());
                     return result;
                 }
                 else  {return "Du brauchst erst einen Rucksack!";}
