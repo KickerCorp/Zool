@@ -27,6 +27,7 @@ public class Interaction
     public String interactWithIt(String removingPerson){
         String result = null;    
         if(removingPerson.equals("WERKBANK")){result = buildLuckItem();}
+        else if(removingPerson.equals("HERD")){result = cooking();}
         else{result = "Ist niemand der mit dir sprechen will.";}
         return result;
     }
@@ -37,8 +38,8 @@ public class Interaction
             Inventar.addToInventory("GLÜCKSBRINGER");
             return "Du hast einen Glücksbringer gebaut";
            }
-       else if (Inventar.removeItem("MAGISCHES WASSER")== true && Inventar.removeItem("MIESMUSCHEL")== true){
-            Inventar.addToInventory("MAGISCHE MIESMUSCHEL");
+       else if (Inventar.removeItem("WASSER")== true && Inventar.removeItem("MIESMUSCHEL")== true){
+            Inventar.addToInventory("MAGISCHEMIESMUSCHEL");
             return "Du hast einen Magische MIESMUSCHEL gebaut";
            }
 
@@ -46,4 +47,13 @@ public class Interaction
     
     
   }
+  
+  public String cooking(){
+    
+        if (Inventar.removeItem("FLEISCH")== true){
+            Inventar.addToInventory("ESSEN");
+            return "Du hast tolles Essen gekocht";
+           }
+          else{return "Du hast NICHT die richtigen Zutaten!";} 
+    }
 }    

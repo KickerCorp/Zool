@@ -51,8 +51,8 @@ public class Game
         kueche = new Room("Du befindest dich in der Küche", herd =  new Person("HERD"),null,true);
         schlafzimmer = new Room("Du befindest dich im Schlafzimmer",null,"HUFEISEN",true); //Rucksack hinzugefügt
         badezimmer = new Room("Du befindest dich im Badezimmer",null,"MIESMUSCHEL",true);
-        keller = new Room("Du befindest dich im Keller", türsteher = new Person("Türsteher"),"MAGISCHES WASSER",true);
-        vorratskammer = new Room("Du befindest dich in der Vorratskammer",bettler = new Person("BETTLER"),"GEPÖKELTER SCHWEINERÜCKEN",false);
+        keller = new Room("Du befindest dich im Keller", türsteher = new Person("Türsteher"),"WASSER",true);
+        vorratskammer = new Room("Du befindest dich in der Vorratskammer",bettler = new Person("BETTLER"),"FLEISCH",false);
         kickerraum = new Room("Du befindest dich im Kickerraum",duc = new Person("DUC DER KICKERMAN"),null,false);
         flur = new Room("Du befindest dich im Flur in der ersten Etage",null,null,true);
         zielraum = new Room("Du befindest dich im Zielraum",prinzessin = new Person("PRINZESSIN"),null,false);

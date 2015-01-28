@@ -42,7 +42,11 @@ public class Inventory
     
     public boolean removeItem(String item){
        boolean returned = false;    
-       Inventar.remove(item);
+      if (Inventar.contains(item)){
+         Inventar.remove(item);
+         returned = true;
+         return returned;
+        }
          return returned;
         }
     
