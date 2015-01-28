@@ -8,14 +8,14 @@
 public class Interaction
 {
     // instance variables - replace the example below with your ow
-    private Inventory Inventar;
+    private Inventory inventar;
 
     /**
      * Constructor for objects of class Interaction
      */
-    public Interaction(Inventory Inventar)
+    public Interaction(Inventory inventar)
     {
-        this.Inventar = Inventar;
+        this.inventar = inventar;
     }
 
     /**
@@ -24,22 +24,24 @@ public class Interaction
      * @param  y   a sample parameter for a method
      * @return     the sum of x and y 
      */
-    public String interactWithIt(String removingPerson){
+    public String interactWithIt(String item){
         String result = null;    
-        if(removingPerson.equals("WERKBANK")){result = buildLuckItem();}
-        else if(removingPerson.equals("HERD")){result = cooking();}
+        if(item.contains("WERKBANK")){result = buildLuckItem();}
+        else if(item.contains("HERD")){result = cooking();}
         else{result = "Ist niemand der mit dir sprechen will.";}
         return result;
     }
     
     public String buildLuckItem()
     {
-        if (Inventar.removeItem("KLEEBLATT")== true && Inventar.removeItem("HUFEISEN")== true){
-            Inventar.addToInventory("GLÜCKSBRINGER");
+        if (inventar.removeItem("KLEEBLATT")== true && inventar.removeItem("HUFEISEN")== true){
+            inventar.removeItem("KLEEBLATT");
+            inventar.removeItem("HUFEISEN");
+            inventar.addToInventory("GLÜCKSBRINGER");
             return "Du hast einen Glücksbringer gebaut";
            }
-       else if (Inventar.removeItem("WASSER")== true && Inventar.removeItem("MIESMUSCHEL")== true){
-            Inventar.addToInventory("MAGISCHEMIESMUSCHEL");
+       else if (inventar.removeItem("WASSER")== true && inventar.removeItem("MIESMUSCHEL")== true){
+            inventar.addToInventory("MAGISCHEMIESMUSCHEL");
             return "Du hast einen Magische MIESMUSCHEL gebaut";
            }
 
@@ -50,8 +52,8 @@ public class Interaction
   
   public String cooking(){
     
-        if (Inventar.removeItem("FLEISCH")== true){
-            Inventar.addToInventory("ESSEN");
+        if (inventar.removeItem("FLEISCH")== true){
+            inventar.addToInventory("ESSEN");
             return "Du hast tolles Essen gekocht";
            }
           else{return "Du hast NICHT die richtigen Zutaten!";} 

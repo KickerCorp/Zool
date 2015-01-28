@@ -23,7 +23,7 @@ public class Game
     private Room[] rooms;
     private boolean backpackFound;
     private Assignments assignment;
-    private Inventory Inventar;
+    private Inventory inventar;
     private Interaction interAct;
     private Room lastRoom;
     private Random rand;
@@ -39,7 +39,7 @@ public class Game
         createRooms();
         parser = new Parser();    
         assignment = new Assignments();
-        Inventar = new Inventory();
+        inventar = new Inventory();
         
     }
 
@@ -80,7 +80,7 @@ public class Game
         while(i == 3){
             i = rand.nextInt(9);
         }
-        rooms[i].addItem("RUCKSACK"); 
+        rooms[0].addItem("RUCKSACK"); 
        
         
         
@@ -225,6 +225,8 @@ public class Game
           result = currentRoom.lookAround();
         else if (commandWord.equals("ZURÜCK"))
             result = zurück();
+             else if (commandWord.equals("INTERACT"))
+            result = interagieren(command);
         return result;
 
     }
@@ -317,9 +319,9 @@ public class Game
     }
 
     private String interagieren(Command command){
-        interAct = new Interaction(this.Inventar);
-        String person = currentRoom.getPersonName();
-        String result = interAct.interactWithIt(person);
+        interAct = new Interaction(this.inventar);
+        String item = currentRoom.getItemName();
+        String result = interAct.interactWithIt(item);
         return result;
 
     }
@@ -331,14 +333,14 @@ public class Game
         }   
         else{
             if(currentRoom.getItemName() == null){return "Das gibt es hier nicht!";}
-            else if(currentRoom.getItemName().equals(command.getSecondWord())){
+            else if(currentRoom.getItemName().contains(command.getSecondWord())){
                 if(command.getSecondWord().equals("RUCKSACK")){
                     backpackFound=true;
                 }
                 if(backpackFound){
                     String result = "Du erhälst ";
                     result += command.getSecondWord();
-                    Inventar.addToInventory(command.getSecondWord());
+                    inventar.addToInventory(command.getSecondWord());
                     currentRoom.removeItem(command.getSecondWord());
                     return result;
                 }
@@ -351,7 +353,7 @@ public class Game
     }
 
     private String showInventar(){
-        return Inventar.showInventory();
+        return inventar.showInventory();
     }
 
     public static void main(String[] args){
@@ -365,16 +367,17 @@ public class Game
 
         System.out.println("\nVor der Kellertür steht ein unglaublich breiter Türsteher.\nHier kommst du nur vorbei, wenn du ihn im Schere-Stein-Papier besiegt!\nSchreibe [Stein],[Schere] oder [Papier] um zu spielen\nUm aufzugeben, schreibe [Mist].");
         PaperScissorRockEngine engine = new PaperScissorRockEngine();
-        result += engine.startPlaying(parser.getCommand(), 30);
+        result += engine.startPlaying(parser.getCommand(), 0);
         //solange man verliert, läuft das Spiel weiter.
         while(result.contains("verlierst")){
             result = "";
 
-            result += engine.startPlaying(parser.getCommand(), 30);
+            result += engine.startPlaying(parser.getCommand(), 0);
         }
         if(result.contains("gewinnst")){
             currentRoom.setOpen();
             result += "\n" + currentRoom.getDescription()+"\n" + "\n" + "zur Verfügung stehende Ausgänge: " + currentRoom.getExits();
+            inventar.addToInventory("SCHLÜSSEL");
         }
 
         if(result.contains("Klatsche")){
