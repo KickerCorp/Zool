@@ -13,6 +13,8 @@ public class PaperScissorRockEngine
     private Random randomGenerator;
     //private Parser parser;
     private String result;
+    private int probability;
+    
     /**
      * Constructor for objects of class GameEngine
      */
@@ -38,11 +40,15 @@ public class PaperScissorRockEngine
 
     }
 
-    private String play(Command command, int probability){
+    private String play(Command command){
         //Command command = parser.getCommand();
         int i = randomGenerator.nextInt(100);
 
         String commandWord = command.getCommandWord();
+        
+        if(command.isUnknown()) {
+            return "Keine Ahnung was du meinst?!";
+        }  
         
         if (commandWord.equals("MIST")){
             result += loseMap.get(commandWord);
@@ -75,10 +81,10 @@ public class PaperScissorRockEngine
 
     }
 
-    public String startPlaying(Command command, int probability){
+    public String startPlaying(Command command){
         result = "";
         boolean finished = false;
-        result = play(command, probability);
+        result = play(command);
         if(result.contains(". Du gewinnst! :)")){
 
             result += "Herzlichen Glückwunsch!";
@@ -91,5 +97,9 @@ public class PaperScissorRockEngine
         System.out.println(result);
         
         return result;
+    }
+    
+    public void setProbability(int p){
+        probability = p;
     }
 }

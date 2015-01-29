@@ -9,13 +9,16 @@ public class Interaction
 {
     // instance variables - replace the example below with your ow
     private Inventory inventar;
+    private Parser iParser;
 
     /**
      * Constructor for objects of class Interaction
      */
-    public Interaction(Inventory inventar)
+    public Interaction(Inventory inventar, Parser parser)
     {
         this.inventar = inventar;
+        iParser = new Parser();
+        iParser = parser;
     }
 
 
@@ -25,9 +28,9 @@ public class Interaction
      * @param  y   a sample parameter for a method
      * @return     the sum of x and y 
      */
-     public String interactWithIt(String item){
+     public String interactWithIt(String item, Command command){
         String result = null;    
-        if(item.contains("WERKBANK")){result = benutzen();}
+        if(item.contains("WERKBANK")){result = benutzen(command);}
         else if(item.contains("HERD")){result = cooking();}
         else{result = "Das kann man hier nicht benutzen.";}
         return result;
@@ -35,7 +38,7 @@ public class Interaction
     }
 
     
-    public String benutzen(){
+    public String benutzen(Command command){
         String result = "";
                     System.out.println("Du benutzt die WERKBANK. Du kannst hier zwei Items kombinieren.");
                     System.out.println("Welche Gegenstände möchtest du kombinieren?");
@@ -62,11 +65,11 @@ public class Interaction
                     else { 
                        System.out.println("Dir fehlt ein oder mehrere Items zum kombinieren.");
                             }
-                        }
+                        }**/
        
                         // Glückbringer und MagischeMiesmuschel bauen
                     if(inventar.contains("KLEEBLATT")&&inventar.contains("HUFEISEN")){
-                       if(newCommand.getCommandWord().equals("KLEEBLATT")&&newCommand.getSecondWord().equals("HUFEISEN")){
+                       if(command.getCommandWord().equals("KLEEBLATT")&& command.getSecondWord().equals("HUFEISEN")){
                             inventar.removeItem("KLEEBLATT");
                             inventar.removeItem("HUFEISEN");
                             inventar.addToInventory("GLÜCKSBRINGER");
@@ -75,7 +78,8 @@ public class Interaction
                     }
                     
                        else if(inventar.contains("WASSER")&&inventar.contains("MIESMUSCHEL")){
-                        if((newCommand.getCommandWord().equals("WASSER")&&newCommand.getSecondWord().equals("MIESMUSCHEL")) || (newCommand.getCommandWord().equals("WASSER") && newCommand.getSecondWord().equals("MIESMUSCHEL"))){
+                        if(command.getCommandWord().equals("WASSER")&&command.getSecondWord().equals("MIESMUSCHEL") || command.getCommandWord().equals("WASSER") && command.getSecondWord().equals("MIESMUSCHEL")){
+                            System.out.println("Test");
                             inventar.removeItem("WASSER"); 
                             inventar.removeItem("MIESMUSCHEL"); 
                             inventar.addToInventory("MAGISCHEMIESMUSCHEL");
@@ -86,7 +90,7 @@ public class Interaction
                         }
                     
                         
-                      }**/
+                      }
                     
                     return result;
                 }

@@ -27,6 +27,8 @@ public class Game
     private Interaction interAct;
     private Room lastRoom;
     private Random rand;
+    private PaperScissorRockEngine engine;
+    public boolean werkbankInUsage;
 
     /**
      * Create the game and initialise its internal map.
@@ -40,7 +42,8 @@ public class Game
         parser = new Parser();    
         assignment = new Assignments();
         inventar = new Inventory();
-        
+        werkbankInUsage = false;
+
     }
 
     public void createRooms()
@@ -75,7 +78,7 @@ public class Game
         rooms[9] = vorratskammer;
         rooms[10] = kickerraum;
         rooms[11] = zielraum;
-        
+
         int i = rand.nextInt(9);
         while(i == 3){
             i = rand.nextInt(9);
@@ -83,9 +86,6 @@ public class Game
         rooms[0].addItem("RUCKSACK", false);
         rooms[0].addItem("WASSER", false); 
         rooms[0].addItem("MIESMUSCHEL", false); 
-       
-        
-        
 
         // initialise room exits
         //alle Himmelsrichtungen großgeschrieben wegen trimUpperCase() in Parser
@@ -199,7 +199,7 @@ public class Game
         boolean wantToQuit = false;
 
         if(command.isUnknown()) {
-            return "I don't know what you mean...";
+            return "Keine Ahnung was du meinst?!";
         }
 
         String commandWord = command.getCommandWord();
@@ -213,8 +213,9 @@ public class Game
             result = quit(command);
         else if (commandWord.equals("AUFTRAG"))
             result = auftrag(command);
-        else if (commandWord.equals("BENUTZE"))      
-        result = benutzen(command); //benutzen hinzugefügt
+        else if (commandWord.equals("BENUTZE"))     
+            result = benutzen(command);
+        //benutzen hinzugefügt
         //else if (commandWord.equals("SPRICH"))
         //result = sprechen(command); //sprechen hinzugefügt*/
         else if (commandWord.equals("NIMM"))        
@@ -224,11 +225,20 @@ public class Game
         else if (commandWord.equals("KARTE"))
             result = showMap();
         else if (commandWord.equals("UMSCHAUEN"))
-          result = currentRoom.lookAround();
+            result = currentRoom.lookAround();
         else if (commandWord.equals("ZURÜCK"))
             result = zurück();
-            /* else if (commandWord.equals("INTERACT"))
-            result = interagieren(command);*/
+        else if(commandWord.equals("KOMBINIERE")){
+            if(werkbankInUsage){
+                result = kombinieren(command);
+            }else {
+                result = "Du kannst zur Zeit nichts kombinieren! Benutze dafür die WERKBANK";
+            }
+
+        }
+
+        /* else if (commandWord.equals("INTERACT"))
+        result = interagieren(command);*/
         return result;
 
     }
@@ -313,6 +323,52 @@ public class Game
         return result;
     }
 
+    private String kombinieren(Command command){
+        String result = "";
+
+        String commandAsString = command.getSecondWord();
+        if(commandAsString == null){
+            return "Was willst du kombinieren?";
+        }
+
+        if(commandAsString.contains("WASSER")&& commandAsString.contains("MIESMUSCHEL")){
+            
+            if(inventar.contains("WASSER") && inventar.contains("MIESMUSCHEL")){
+
+                inventar.removeItem("WASSER"); 
+                inventar.removeItem("MIESMUSCHEL"); 
+                inventar.addToInventory("MAGISCHEMIESMUSCHEL");
+                werkbankInUsage = false;
+                return "Du hast einen MAGISCHEMIESMUSCHEL gebaut.";
+            }else{
+                werkbankInUsage = false;
+                return "Du hast NICHT die richtigen Materialien!";
+            }
+            
+        }
+        
+        else if(commandAsString.contains("HUFEISEN")&& commandAsString.contains("KLEEBLATT")){
+            
+             if(inventar.contains("KLEEBLATT") && inventar.contains("HUFEISEN")){
+
+                    inventar.removeItem("HUFEISEN"); 
+                    inventar.removeItem("KLEEBLATT"); 
+                    inventar.addToInventory("GLÜCKSBRINGER");
+                    werkbankInUsage = false;
+                    return "Du hast einen GLÜCKSBRINGER gebaut.";}
+                    else{
+                    werkbankInUsage = false;
+                    return "Du hast NICHT die richtigen Materialien!";
+                }
+                
+        }
+        
+        else{
+            werkbankInUsage = false;
+            return "Das kannst du nicht kombinieren!";
+        }
+    }
+
     private String zurück(){
         String result = "";
         currentRoom = lastRoom;
@@ -321,17 +377,22 @@ public class Game
     }
 
     private String benutzen(Command command){
-        interAct = new Interaction(this.inventar);
+        String result = "";
+        interAct = new Interaction(this.inventar, this.parser);
         if(!command.hasSecondWord()) {
-                return "Was willst du benutzen?";
-            }
-        String item = currentRoom.getItemName();
-        String result = interAct.interactWithIt(item);
-        return result;
+            return "Was willst du benutzen?";
+        }
+        if(command.getSecondWord().equals("WERKBANK")&& currentRoom.getItemName().contains("WERKBANK")){
+            werkbankInUsage = true;
+            return "Du benutzt jetzt die WERKBANK. Du kannst hier zwei Items kombinieren.Welche Gegenstände möchtest du kombinieren?\n Gib [KOMBINIERE] [] [GEGENSTAND1+GEGENSTAND2] ein";
+        }
 
+        //String result = interAct.interactWithIt(item, parser.getCommand());
+        return result;
     }
 
     private String nehmen(Command command){
+        String result = "";
         if(!command.hasSecondWord()) {
             // if there is no second word, we don't know where to go...
             return "Was soll ich nehmen?";
@@ -343,7 +404,11 @@ public class Game
                     backpackFound=true;
                 }
                 if(backpackFound){
-                    String result = "Du erhälst ";
+                    if(currentRoom.getFixedItems().contains(command.getSecondWord())){
+                        result += "Das ist zu schwer für dich! Das kannst du nicht aufheben!";
+                        return result;
+                    }
+                    result = "Du erhälst ";
                     result += command.getSecondWord();
                     inventar.addToInventory(command.getSecondWord());
                     currentRoom.removeItem(command.getSecondWord());
@@ -371,13 +436,13 @@ public class Game
         //Wenn in dem Raum, der Türsteher steht, wird das PaperScissorRockGame gestartet!
 
         System.out.println("\nVor der Kellertür steht ein unglaublich breiter Türsteher.\nHier kommst du nur vorbei, wenn du ihn im Schere-Stein-Papier besiegt!\nSchreibe [Stein],[Schere] oder [Papier] um zu spielen\nUm aufzugeben, schreibe [Mist].");
-        PaperScissorRockEngine engine = new PaperScissorRockEngine();
-        result += engine.startPlaying(parser.getCommand(), 0);
+        engine = new PaperScissorRockEngine();
+        result += engine.startPlaying(parser.getCommand());
         //solange man verliert, läuft das Spiel weiter.
-        while(result.contains("verlierst")){
+        while(result.contains("verlierst") ||result.contains("Ahnung") ){
             result = "";
 
-            result += engine.startPlaying(parser.getCommand(), 0);
+            result += engine.startPlaying(parser.getCommand());
         }
         if(result.contains("gewinnst")){
             currentRoom.setOpen();
