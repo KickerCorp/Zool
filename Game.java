@@ -24,7 +24,6 @@ public class Game
     private boolean backpackFound;
     private Assignments assignment;
     private Inventory inventar;
-    private Interaction interAct;
     private Room lastRoom;
     private Random rand;
     private PaperScissorRockEngine engine;
@@ -241,8 +240,6 @@ public class Game
 
         }
 
-        /* else if (commandWord.equals("INTERACT"))
-        result = interagieren(command);*/
         return result;
 
     }
@@ -382,20 +379,19 @@ public class Game
 
     private String benutzen(Command command){
         String result = "";
-        interAct = new Interaction(this.inventar, this.parser);
         if(!command.hasSecondWord()) {
             return "Was willst du benutzen?";
         }
-         if(command.getSecondWord().equals("GLÜCKSBRINGER")&& inventar.contains("GLÜCKSBRINGER")){
+        else if(command.getSecondWord().equals("GLÜCKSBRINGER")&& inventar.contains("GLÜCKSBRINGER")){
             engine.setProbability(50);
             inventar.removeItem("GLÜCKSBRINGER");
             return "Du hast den Glücksbringer benutzt und dein Glück im Spiel steig extrem!!";
         }
-        if(command.getSecondWord().equals("WERKBANK")&& currentRoom.getItemName().contains("WERKBANK")){
+        else if(command.getSecondWord().equals("WERKBANK")&& currentRoom.getItemName().contains("WERKBANK")){
             werkbankInUsage = true;
             return "Du benutzt jetzt die WERKBANK. Du kannst hier zwei Items kombinieren.Welche Gegenstände möchtest du kombinieren?\n Gib [KOMBINIERE] [] [GEGENSTAND1+GEGENSTAND2] ein";
         }
-           if(command.getSecondWord().equals("MAGISCHEMIESMUSCHEL")&& inventar.contains("MAGISCHEMIESMUSCHEL")){ 
+        else if(command.getSecondWord().equals("MAGISCHEMIESMUSCHEL")&& inventar.contains("MAGISCHEMIESMUSCHEL")){ 
              boolean muschelInUse = true;  
              muschel = new MagischeMiesmuschel();
              muschel.printWelcome();
@@ -403,9 +399,10 @@ public class Game
              String input = parser.getCommandAsString();
              muschelInUse = muschel.start(input);
             }
+            result ="Du legst die Muschel zurück in dein Inventar.";
         }
+        else{result = "Das kannst du hier nicht benutzen!";}
 
-        //String result = interAct.interactWithIt(item, parser.getCommand());
         return result;
     }
 
