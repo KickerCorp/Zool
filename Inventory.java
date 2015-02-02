@@ -23,7 +23,11 @@ public class Inventory
     }
 
     public void addToInventory(String item){
+         if(ObjectsInInventory == 3){InventarIsFull = true;}
+        else{InventarIsFull = false;}
 
+        
+        
         if(!InventarIsFull){
             Inventar.add(item);
             ObjectsInInventory++;
@@ -35,9 +39,7 @@ public class Inventory
         }
         else{System.out.println("Dein Rucksack ist schon voll!");}
 
-        if(ObjectsInInventory == 3){InventarIsFull = true;}
-        else{InventarIsFull = false;}
-
+       
     }
 
     public boolean removeItem(String item){

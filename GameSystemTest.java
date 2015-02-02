@@ -150,7 +150,19 @@ public class GameSystemTest
         
     
     }
+
+    @Test
+    public void CraftTwoThings()
+    {
+    }
+
+    @Test
+    public void CraftingMal2()
+    {
+    }
 }
+
+
 
 
 
