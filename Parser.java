@@ -45,6 +45,11 @@ public class Parser
         String inputLine = readLine(); 
         return getCommand(inputLine);
     }
+    public String getCommandAsString(){
+        String inputLine = readLine(); 
+        return inputLine;
+    }
+    
     public Command getCommand(String inputLine){
         
         String word1 = null;

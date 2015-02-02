@@ -31,36 +31,29 @@ public class MagischeMiesmuschel
      * message and enter into a dialog with the user, until the user
      * ends the dialog.
      */
-    public void start(Command command)
-    {
-        boolean finished = false;
-
-        printWelcome();
-
-        while(!finished) {
-            String input = command.getCommandWord();
-
-            if(input.contains("ZUR‹CKLEGEN")) {
-                finished = true;
+    public boolean start(String input)
+    {  
+        if(input.contains("ZUR‹CKLEGEN")) {
+               System.out.println("Du legst die Muschel zur¸ck!");
+               return false;
             }
-            else {
+        else {
                 String response = responder.generateResponse(input);
                 System.out.println(response);
-            }
-        }
-        printGoodbye();
+                return true;
+             }
     }
 
     /**
      * Print a welcome message to the screen.
      */
-    private void printWelcome()
+    public void printWelcome()
     {
         System.out.println("An der Muschel h√§ngt eine Schnur - du ziehst sie.");
         System.out.println("W√§hrend sich die Schnur langsam wieder zur√ºckzieht, ert√∂nt aus der Muschel:");
         System.out.println("'Ich bin eine magische Miesmuschel'");
         System.out.println("'Stelle eine Ja/Nein Frage und ziehe an der Schnur!'");
-        System.out.println("Wenn du fertig bist kannst du die Muschel 'zur√ºcklegen'");
+        System.out.println("Wenn du fertig bist kannst du die Muschel 'ZUR‹CKLEGEN'");
     }
 
     /**

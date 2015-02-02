@@ -29,6 +29,7 @@ public class Game
     private Random rand;
     private PaperScissorRockEngine engine;
     public boolean werkbankInUsage;
+    private MagischeMiesmuschel muschel;
 
     /**
      * Create the game and initialise its internal map.
@@ -44,6 +45,7 @@ public class Game
         inventar = new Inventory();
         werkbankInUsage = false;
         engine = new PaperScissorRockEngine();
+       
 
     }
 
@@ -392,6 +394,15 @@ public class Game
         if(command.getSecondWord().equals("WERKBANK")&& currentRoom.getItemName().contains("WERKBANK")){
             werkbankInUsage = true;
             return "Du benutzt jetzt die WERKBANK. Du kannst hier zwei Items kombinieren.Welche Gegenstände möchtest du kombinieren?\n Gib [KOMBINIERE] [] [GEGENSTAND1+GEGENSTAND2] ein";
+        }
+           if(command.getSecondWord().equals("MAGISCHEMIESMUSCHEL")&& inventar.contains("MAGISCHEMIESMUSCHEL")){ 
+             boolean muschelInUse = true;  
+             muschel = new MagischeMiesmuschel();
+             muschel.printWelcome();
+             while(muschelInUse == true){
+             String input = parser.getCommandAsString();
+             muschelInUse = muschel.start(input);
+            }
         }
 
         //String result = interAct.interactWithIt(item, parser.getCommand());
