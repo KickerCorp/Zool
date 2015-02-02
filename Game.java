@@ -43,6 +43,7 @@ public class Game
         assignment = new Assignments();
         inventar = new Inventory();
         werkbankInUsage = false;
+        engine = new PaperScissorRockEngine();
 
     }
 
@@ -85,7 +86,8 @@ public class Game
         }
         rooms[0].addItem("RUCKSACK", false);
         rooms[0].addItem("WASSER", false); 
-        rooms[0].addItem("MIESMUSCHEL", false); 
+        rooms[0].addItem("MIESMUSCHEL", false);
+      
 
         // initialise room exits
         //alle Himmelsrichtungen großgeschrieben wegen trimUpperCase() in Parser
@@ -382,6 +384,11 @@ public class Game
         if(!command.hasSecondWord()) {
             return "Was willst du benutzen?";
         }
+         if(command.getSecondWord().equals("GLÜCKSBRINGER")&& inventar.contains("GLÜCKSBRINGER")){
+            engine.setProbability(50);
+            inventar.removeItem("GLÜCKSBRINGER");
+            return "Du hast den Glücksbringer benutzt und dein Glück im Spiel steig extrem!!";
+        }
         if(command.getSecondWord().equals("WERKBANK")&& currentRoom.getItemName().contains("WERKBANK")){
             werkbankInUsage = true;
             return "Du benutzt jetzt die WERKBANK. Du kannst hier zwei Items kombinieren.Welche Gegenstände möchtest du kombinieren?\n Gib [KOMBINIERE] [] [GEGENSTAND1+GEGENSTAND2] ein";
@@ -436,7 +443,6 @@ public class Game
         //Wenn in dem Raum, der Türsteher steht, wird das PaperScissorRockGame gestartet!
 
         System.out.println("\nVor der Kellertür steht ein unglaublich breiter Türsteher.\nHier kommst du nur vorbei, wenn du ihn im Schere-Stein-Papier besiegt!\nSchreibe [Stein],[Schere] oder [Papier] um zu spielen\nUm aufzugeben, schreibe [Mist].");
-        engine = new PaperScissorRockEngine();
         result += engine.startPlaying(parser.getCommand());
         //solange man verliert, läuft das Spiel weiter.
         while(result.contains("verlierst") ||result.contains("Ahnung") ){
