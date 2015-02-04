@@ -44,10 +44,8 @@ public class Game
         inventar = new Inventory();
         werkbankInUsage = false;
         engine = new PaperScissorRockEngine();
-       
 
     }
-
     public void createRooms()
     {
         Room eingangshalle, schlossgarten, kueche, terrasse, schlafzimmer,flur, badezimmer, keller, vorratskammer, kickerraum, werkstatt, zielraum;
@@ -88,7 +86,6 @@ public class Game
         rooms[0].addItem("RUCKSACK", false);
         rooms[0].addItem("WASSER", false); 
         rooms[0].addItem("MIESMUSCHEL", false);
-      
 
         // initialise room exits
         //alle Himmelsrichtungen großgeschrieben wegen trimUpperCase() in Parser
@@ -200,7 +197,7 @@ public class Game
      * @param command The command to be processed.
      * @return true If the command ends the game, false otherwise.
      */
-    
+
     public String processCommand(Command command) 
     {
         boolean wantToQuit = false;
@@ -247,8 +244,7 @@ public class Game
             System.out.println("HERZLICHEN GLÜCKWUNSCH DU HAST DAS SPIEL GEWONNEN UND ALLES AUFABEN GESCHAFT! :D :D :D");
             result = null;
         }
-        
-        
+
         
         return result;
 
@@ -343,7 +339,7 @@ public class Game
         }
 
         if(commandAsString.contains("WASSER")&& commandAsString.contains("MIESMUSCHEL")){
-            
+
             if(inventar.contains("WASSER") && inventar.contains("MIESMUSCHEL")){
 
                 inventar.removeItem("WASSER"); 
@@ -355,27 +351,27 @@ public class Game
                 werkbankInUsage = false;
                 return "Du hast NICHT die richtigen Materialien!";
             }
-            
-        }
-        
-        else if(commandAsString.contains("HUFEISEN")&& commandAsString.contains("KLEEBLATT")){
-            
-             if(inventar.contains("KLEEBLATT") && inventar.contains("HUFEISEN")){
 
-                    inventar.removeItem("HUFEISEN"); 
-                    inventar.removeItem("KLEEBLATT"); 
-                    inventar.addToInventory("GLÜCKSBRINGER");
-                    Assignments.changeCurrentTask();
-                    werkbankInUsage = false;
-                    return "Du hast einen GLÜCKSBRINGER gebaut.";
-                }
-                    else{
-                    werkbankInUsage = false;
-                    return "Du hast NICHT die richtigen Materialien!";
-                }
-                
         }
-        
+
+        else if(commandAsString.contains("HUFEISEN")&& commandAsString.contains("KLEEBLATT")){
+
+            if(inventar.contains("KLEEBLATT") && inventar.contains("HUFEISEN")){
+
+                inventar.removeItem("HUFEISEN"); 
+                inventar.removeItem("KLEEBLATT"); 
+                inventar.addToInventory("GLÜCKSBRINGER");
+                Assignments.changeCurrentTask();
+                werkbankInUsage = false;
+                return "Du hast einen GLÜCKSBRINGER gebaut.";
+            }
+            else{
+                werkbankInUsage = false;
+                return "Du hast NICHT die richtigen Materialien!";
+            }
+
+        }
+
         else{
             werkbankInUsage = false;
             return "Das kannst du nicht kombinieren!";
@@ -404,19 +400,19 @@ public class Game
             return "Du benutzt jetzt die WERKBANK. Du kannst hier zwei Items kombinieren.Welche Gegenstände möchtest du kombinieren?\n Gib [KOMBINIERE] [] [GEGENSTAND1+GEGENSTAND2] ein";
         }
         else if(command.getSecondWord().equals("MAGISCHEMIESMUSCHEL")&& inventar.contains("MAGISCHEMIESMUSCHEL")){ 
-             boolean muschelInUse = true;  
-             muschel = new MagischeMiesmuschel();
-             muschel.printWelcome();
-             while(muschelInUse == true){
-             String input = parser.getCommandAsString();
-             muschelInUse = muschel.start(input);
+            boolean muschelInUse = true;  
+            muschel = new MagischeMiesmuschel();
+            muschel.printWelcome();
+            while(muschelInUse == true){
+                String input = parser.getCommandAsString();
+                muschelInUse = muschel.start(input);
             }
             result ="Du legst die Muschel zurück in dein Inventar.";
         }
-          else if(command.getSecondWord().equals("NOTIZZETTEL")&& inventar.contains("NOTIZZETTEL")){ 
+        else if(command.getSecondWord().equals("NOTIZZETTEL")&& inventar.contains("NOTIZZETTEL")){ 
             result ="Auf dem Zettel stehet: Wenn du mal die Gelgenheit hast etwas zu fragen , frag nach dem Sinn des Lebens!' ";
         }
-       
+
         else{result = "Das kannst du hier nicht benutzen!";}
 
         return result;
@@ -429,34 +425,46 @@ public class Game
             return "Was soll ich nehmen?";
         }   
         else{
-            if(currentRoom.getItemName() == null){return "Das gibt es hier nicht!";}
-            else if(currentRoom.getItemName().contains(command.getSecondWord())){
-                if(command.getSecondWord().equals("RUCKSACK")){
+            if(currentRoom.getItemName() == null){
+                return "Das gibt es hier nicht!";
+            } 
+        }
+         for(int i = 0; i < currentRoom.getNumberOfItems();i++){
+                    if(currentRoom.getEachItem(i).equals(command.getSecondWord())){
+                        result += itemIsInRoom(command);
+                        return result;
+                    }
+          }
+             
+
+            
+            
+           return "Das kann ich nicht einsammeln";
+
+                }
+    
+    
+    public String itemIsInRoom(Command command){
+       String result = "";
+        if(command.getSecondWord().equals("RUCKSACK")){
                     backpackFound=true;
                 }
-                if(backpackFound){
+        if(backpackFound){
                     if(currentRoom.getFixedItems().contains(command.getSecondWord())){
                         result += "Das ist zu schwer für dich! Das kannst du nicht aufheben!";
                         return result;
-                }
+                    }
+
                     
-                  for(Item item : currentRoom.items){
-                    if(item.getItem().equals(command.getSecondWord())){
                         inventar.addToInventory(command.getSecondWord());
                         result = "Du erhälst ";
                         result += command.getSecondWord();
                         currentRoom.removeItem(command.getSecondWord());
-                    }
+                    
 
-                    }
-                  return result;
-            }
-             else  {return "Du brauchst erst einen Rucksack!";}
-
-            }
-            else{return "Das kann ich nicht einsammeln";}
-
-        }
+                    return result;
+                }
+                else  {return "Du brauchst erst einen Rucksack!";}
     }
 
     private String showInventar(){

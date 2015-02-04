@@ -175,6 +175,14 @@ public class Room
         return result;
 
     }
+    
+    public String getEachItem(int index){
+        return items.get(index).getItem();
+    }
+    
+    public int getNumberOfItems(){
+        return items.size();
+    }
     /**
      * @return All exits of the room.
      */
