@@ -89,7 +89,7 @@ public class Responder
 
     public void fillAnswers()
     {
-        answers.put("LEBENS", "Moment ich rechne... 'Zweiundvierzig' ist die Antwort");
+        answers.put("Was ist der Sinn des Lebens?", "Moment ich rechne... 'Zweiundvierzig' ist die Antwort");
     }
 
     public String generateRandomResponse(){
