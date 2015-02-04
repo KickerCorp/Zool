@@ -55,6 +55,12 @@ public class PaperScissorRockEngine
             return result;
         }
         
+              if (commandWord.equals("NACH")){
+            result += loseMap.get("MIST");
+            return result;
+        }
+     
+        
         if (i < probability){
             result = "Dein Gegner wählt : ";
             if(commandWord.equals("STEIN"))    

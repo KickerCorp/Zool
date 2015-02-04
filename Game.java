@@ -237,10 +237,11 @@ public class Game
                 result = kombinieren(command);
             }else {
                 result = "Du kannst zur Zeit nichts kombinieren! Benutze dafür die WERKBANK";
-            }
-
-        }
-
+            }}
+        else if (commandWord.equals("STEIN")||commandWord.equals("SCHERE")||commandWord.equals("PAPIER"))
+            result = "Das spielst im Moment nicht Schere Stein Papier!";
+        
+        
         return result;
 
     }

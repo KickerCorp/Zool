@@ -23,8 +23,8 @@ public class Assignments // der Quest Status
     
     public void addTasks(){
         tasks[0] = "Finde einen Rucksack, um Gegenstände tragen zu können";
-        tasks[1] = "Finde den Schlüssel für die Küche"; // Um die Tür zu öffnen (in der Küche)
-        tasks[2] = "Öffne den zweite Küchentür";// mit use Küchen schlüssel 
+        tasks[1] = "Bau dir einen Glücksbringer"; // Um die Tür zu öffnen (in der Küche)
+        tasks[2] = "Gewinne im Schere Stein Papier!";// mit use Küchen schlüssel 
         tasks[3] = "Bau dir einen Glücksbringer";// Aus Kleeblatt und Hufeisen
         tasks[4] = "Finde die Vorratskammer";// Schere Stein Papier Mensch besiegen.
         tasks[5] = "Öffne die Turmtür";// Mit dem Schlüssel vom aus dem Vorratsraum. 
