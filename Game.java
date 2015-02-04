@@ -46,6 +46,7 @@ public class Game
         engine = new PaperScissorRockEngine();
 
     }
+
     public void createRooms()
     {
         Room eingangshalle, schlossgarten, kueche, terrasse, schlafzimmer,flur, badezimmer, keller, vorratskammer, kickerraum, werkstatt, zielraum;
@@ -59,7 +60,7 @@ public class Game
         schlafzimmer = new Room("Du befindest dich im Schlafzimmer",null,null,true); //Rucksack hinzugefügt
         badezimmer = new Room("Du befindest dich im Badezimmer",null,hufeisen = new Item("HUFEISEN", false),true);
         keller = new Room("Du befindest dich im Keller", türsteher = new Person("TÜRSTEHER"),null,true);
-        vorratskammer = new Room("Du befindest dich in der Vorratskammer",bettler = new Person("BETTLER"),gepökelterSchweinerücken = new Item("NOTIZZETTEL", false),false);
+        vorratskammer = new Room("Du befindest dich in der Vorratskammer",null,gepökelterSchweinerücken = new Item("NOTIZZETTEL", false),false);
         kickerraum = new Room("Du befindest dich im Kickerraum",duc = new Person("DUC DER KICKERMAN"),null,false);
         flur = new Room("Du befindest dich im Flur in der ersten Etage",null,null,true);
         zielraum = new Room("Du befindest dich im Zielraum",prinzessin = new Person("PRINZESSIN"),null,false);
@@ -179,6 +180,8 @@ public class Game
         System.out.println("Schreibe [BENUTZE] um eine Gegenstand in dem Raum oder im Inventar zu benutzen");
         System.out.println();
         System.out.println("Schreibe [TSCHÜSS], wenn du das Spiel beenden möchtest.");
+        System.out.println();
+        System.out.println("Tipp: Schaue dich in jedem Raum gründlich um.\n");
         System.out.println(assignment.getCurrentTask());
         System.out.println();
         System.out.println(currentRoom.getDescription());
@@ -242,11 +245,8 @@ public class Game
             result = null;
         }
 
-        
         return result;
-
     }
-
     // implementations of user commands:
     /**
      * Print out some help information.
@@ -296,11 +296,12 @@ public class Game
         }
         if(!currentRoom.isOpen()){
             result += " Um diesen Raum betreten zu können, brauchst du einen Schlüssel.\n";
-             if(currentRoom == rooms[3] && inventar.contains("KÜCHENSCHLÜSSEL")){
+            if(currentRoom == rooms[3] && inventar.contains("KÜCHENSCHLÜSSEL")){
                 result += "Du benutzt den KÜCHENSCHLÜSSEL und öffnest die Tür.\n";
                 result += currentRoom.getDescription()+"\n" + "\n" + "zur Verfügung stehende Ausgänge: " + currentRoom.getExits();
                 inventar.removeItem("KÜCHENSCHLÜSSEL");
-                currentRoom.setOpen();                
+                currentRoom.setOpen();
+                assignment.changeCurrentTask();
                 return result;
             }
             currentRoom = lastRoom;
@@ -361,13 +362,19 @@ public class Game
         else if(commandAsString.contains("HUFEISEN")&& commandAsString.contains("KLEEBLATT")){
 
             if(inventar.contains("KLEEBLATT") && inventar.contains("HUFEISEN")){
+                if(!inventar.inventoryFull()){
+                    inventar.removeItem("HUFEISEN"); 
+                    inventar.removeItem("KLEEBLATT"); 
+                    inventar.addToInventory("GLÜCKSBRINGER");
 
-                inventar.removeItem("HUFEISEN"); 
-                inventar.removeItem("KLEEBLATT"); 
-                inventar.addToInventory("GLÜCKSBRINGER");
-                assignment.changeCurrentTask();
-                werkbankInUsage = false;
-                return "Du hast einen GLÜCKSBRINGER gebaut.";
+                    werkbankInUsage = false;
+                    System.out.println("Du hast einen GLÜCKSBRINGER gebaut.");
+                    assignment.changeCurrentTask();
+                    return result;
+                }
+                else{
+                    return "Dein Rucksack ist schon voll";
+                }
             }
             else{
                 werkbankInUsage = false;
@@ -437,41 +444,38 @@ public class Game
             result += "Dein Rucksack ist schon voll!";
             return result;
         }
-         for(int i = 0; i < currentRoom.getNumberOfItems();i++){
-                    if(currentRoom.getEachItem(i).equals(command.getSecondWord())){
-                        result += itemIsInRoom(command);
-                        return result;
-                    }
-          }
-           return "Das kann ich nicht einsammeln";
+        for(int i = 0; i < currentRoom.getNumberOfItems();i++){
+            if(currentRoom.getEachItem(i).equals(command.getSecondWord())){
+                result += itemIsInRoom(command);
+                return result;
+            }
+        }
+        return "Das kann ich nicht einsammeln";
 
-                }
-    
-    
+    }
+
     public String itemIsInRoom(Command command){
-       String result = "";
+        String result = "";
         if(command.getSecondWord().equals("RUCKSACK")){
-                    backpackFound=true;            
-                }
+            backpackFound=true;            
+        }
         if(backpackFound){
-                    if(currentRoom.getFixedItems().contains(command.getSecondWord())){
-                        result += "Das ist zu schwer für dich! Das kannst du nicht aufheben!";
-                        return result;
-                    }
+            if(currentRoom.getFixedItems().contains(command.getSecondWord())){
+                result += "Das ist zu schwer für dich! Das kannst du nicht aufheben!";
+                return result;
+            }
 
-                    
-                        inventar.addToInventory(command.getSecondWord());
-                        result = "Du erhälst ";
-                        result += command.getSecondWord();
-                        if(command.getSecondWord().equals("RUCKSACK")){
-                            assignment.changeCurrentTask();
-                        }
-                        currentRoom.removeItem(command.getSecondWord());
-                    
+            inventar.addToInventory(command.getSecondWord());
+            result = "Du erhälst ";
+            result += command.getSecondWord();
+            if(command.getSecondWord().equals("RUCKSACK")){
+                assignment.changeCurrentTask();
+            }
+            currentRoom.removeItem(command.getSecondWord());
 
-                    return result;
-                }
-                else  {return "Du brauchst erst einen Rucksack!";}
+            return result;
+        }
+        else  {return "Du brauchst erst einen Rucksack!";}
     }
 
     private String showInventar(){
@@ -501,7 +505,7 @@ public class Game
             inventar.addToInventory("KÜCHENSCHLÜSSEL");
             result += "\n" + currentRoom.getDescription()+"\n" + "\n" + "zur Verfügung stehende Ausgänge: " + currentRoom.getExits();
             assignment.changeCurrentTask();
-            
+
         }
 
         if(result.contains("Klatsche")){
