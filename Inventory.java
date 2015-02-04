@@ -23,27 +23,25 @@ public class Inventory
     }
 
     public void addToInventory(String item){
-         if(ObjectsInInventory == 3){InventarIsFull = true;}
-        else{InventarIsFull = false;}
-
-        
-        
-        if(!InventarIsFull){
+        if(!inventoryFull()){
             Inventar.add(item);
             ObjectsInInventory++;
             //Rucksack wird nicht mehr im Inventar angezeigt.
             if(Inventar.contains("RUCKSACK")){
                 removeItem("RUCKSACK");
                 
-            } 
+            
         }
-        else{System.out.println("Dein Rucksack ist schon voll!");}
+        
 
        
+    }else{
+        System.out.println("Dein Rucksack ist schon voll");
     }
+}
     
     public boolean inventoryFull(){
-        return InventarIsFull;
+        return ObjectsInInventory==3;
     }
 
     public boolean removeItem(String item){

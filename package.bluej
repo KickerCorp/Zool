@@ -112,6 +112,7 @@ target11.naviview.expanded=true
 target11.showInterface=false
 target11.type=ClassTarget
 target11.typeParameters=
+<<<<<<< HEAD
 target11.width=80
 target11.x=50
 target11.y=360
@@ -119,6 +120,15 @@ target12.editor.height=738
 target12.editor.width=1378
 target12.editor.x=-9
 target12.editor.y=0
+=======
+target11.width=100
+target11.x=20
+target11.y=170
+target12.editor.height=700
+target12.editor.width=900
+target12.editor.x=518
+target12.editor.y=6
+>>>>>>> daee82cfe5461606bc6b1010e450566dfd2abc41
 target12.height=50
 target12.name=Room
 target12.naviview.expanded=true
