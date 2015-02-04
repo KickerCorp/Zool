@@ -34,12 +34,16 @@ public class Inventory
             //Rucksack wird nicht mehr im Inventar angezeigt.
             if(Inventar.contains("RUCKSACK")){
                 removeItem("RUCKSACK");
-                Assignments.changeCurrentTask();
+                
             } 
         }
         else{System.out.println("Dein Rucksack ist schon voll!");}
 
        
+    }
+    
+    public boolean inventoryFull(){
+        return InventarIsFull;
     }
 
     public boolean removeItem(String item){

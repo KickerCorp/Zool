@@ -23,9 +23,9 @@ public class Assignments // der Quest Status
     
     public void addTasks(){
         tasks[0] = "Finde einen Rucksack, um Gegenstände tragen zu können";
-        tasks[1] = "Bau dir einen Glücksbringer";
-        tasks[2] = "Gewinne im Schere Stein Papier";
-        tasks[3] = "Benutze den Schlüssel.";
+        tasks[1] = "Bau dir einen Glücksbringer und benutze ihn. Du wirst ihn brauchen. Stichwort: Keller!";
+        tasks[2] = "Gewinne im Schere-Stein-Papier";
+        tasks[3] = "Begib dich in die Küche.";
         tasks[4] = "Bau dir die Magischemiesmuschel";
         tasks[5] = "Gewinne das Spiel";
     }
@@ -34,8 +34,9 @@ public class Assignments // der Quest Status
          return "\nAktuelle Mission: " + tasks[taskCounter];    
     }
     
-    static void changeCurrentTask(){
+    public void changeCurrentTask(){
         taskCounter += 1;
+        System.out.println("\n" + getCurrentTask());
     }
 
    

@@ -296,6 +296,13 @@ public class Game
         }
         if(!currentRoom.isOpen()){
             result += " Um diesen Raum betreten zu können, brauchst du einen Schlüssel.\n";
+             if(currentRoom == rooms[3] && inventar.contains("KÜCHENSCHLÜSSEL")){
+                result += "Du benutzt den KÜCHENSCHLÜSSEL und öffnest die Tür.\n";
+                result += currentRoom.getDescription()+"\n" + "\n" + "zur Verfügung stehende Ausgänge: " + currentRoom.getExits();
+                inventar.removeItem("KÜCHENSCHLÜSSEL");
+                currentRoom.setOpen();                
+                return result;
+            }
             currentRoom = lastRoom;
             return result;
         }else{            
@@ -358,7 +365,7 @@ public class Game
                 inventar.removeItem("HUFEISEN"); 
                 inventar.removeItem("KLEEBLATT"); 
                 inventar.addToInventory("GLÜCKSBRINGER");
-                Assignments.changeCurrentTask();
+                assignment.changeCurrentTask();
                 werkbankInUsage = false;
                 return "Du hast einen GLÜCKSBRINGER gebaut.";
             }
@@ -426,16 +433,16 @@ public class Game
                 return "Das gibt es hier nicht!";
             } 
         }
+        if(inventar.inventoryFull()){
+            result += "Dein Rucksack ist schon voll!";
+            return result;
+        }
          for(int i = 0; i < currentRoom.getNumberOfItems();i++){
                     if(currentRoom.getEachItem(i).equals(command.getSecondWord())){
                         result += itemIsInRoom(command);
                         return result;
                     }
           }
-             
-
-            
-            
            return "Das kann ich nicht einsammeln";
 
                 }
@@ -444,7 +451,7 @@ public class Game
     public String itemIsInRoom(Command command){
        String result = "";
         if(command.getSecondWord().equals("RUCKSACK")){
-                    backpackFound=true;
+                    backpackFound=true;            
                 }
         if(backpackFound){
                     if(currentRoom.getFixedItems().contains(command.getSecondWord())){
@@ -456,6 +463,9 @@ public class Game
                         inventar.addToInventory(command.getSecondWord());
                         result = "Du erhälst ";
                         result += command.getSecondWord();
+                        if(command.getSecondWord().equals("RUCKSACK")){
+                            assignment.changeCurrentTask();
+                        }
                         currentRoom.removeItem(command.getSecondWord());
                     
 
@@ -487,9 +497,11 @@ public class Game
         }
         if(result.contains("gewinnst")){
             currentRoom.setOpen();
+            result += "\nDu erhälst KÜCHENSCHLÜSSEL.";
+            inventar.addToInventory("KÜCHENSCHLÜSSEL");
             result += "\n" + currentRoom.getDescription()+"\n" + "\n" + "zur Verfügung stehende Ausgänge: " + currentRoom.getExits();
-            Assignments.changeCurrentTask();
-            inventar.addToInventory("SCHLÜSSEL");
+            assignment.changeCurrentTask();
+            
         }
 
         if(result.contains("Klatsche")){
