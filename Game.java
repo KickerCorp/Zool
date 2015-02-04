@@ -472,6 +472,7 @@ public class Game
                     if(command.getSecondWord().equals("RUCKSACK")){
                         result+= assignment.changeCurrentTask();
                     }
+                    currentRoom.removeItem(command.getSecondWord());
                     return result;
                 }
                 else  {return "Du brauchst erst einen RUCKSACK!";}
