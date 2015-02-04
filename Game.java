@@ -364,7 +364,7 @@ public class Game
         else if(commandAsString.contains("HUFEISEN")&& commandAsString.contains("KLEEBLATT")){
 
             if(inventar.contains("KLEEBLATT") && inventar.contains("HUFEISEN")){
-                if(!inventar.inventoryFull()){
+                
                     inventar.removeItem("HUFEISEN"); 
                     inventar.removeItem("KLEEBLATT"); 
                     inventar.addToInventory("GLÜCKSBRINGER");
@@ -373,10 +373,8 @@ public class Game
                     result += "Du hast einen GLÜCKSBRINGER gebaut.";
                     result += assignment.changeCurrentTask();
                     return result;
-                }
-                else{
-                    return "Dein RUCKSACK ist schon voll";
-                }
+                
+                
             }
             else{
                 werkbankInUsage = false;
