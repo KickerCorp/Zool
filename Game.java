@@ -239,7 +239,7 @@ public class Game
         else if (commandWord.equals("STEIN")||commandWord.equals("SCHERE")||commandWord.equals("PAPIER"))
             result = "Das spielst im Moment nicht Schere-Stein-Papier!";
         else if (commandWord.equals("ZWEIUNDVIERZIG")){
-            System.out.println("HERZLICHEN GLÜCKWUNSCH DU HAST DAS SPIEL GEWONNEN UND ALLES AUFABEN GESCHAFT! :D :D :D");
+            System.out.println("HERZLICHEN GLÜCKWUNSCH DU HAST GEWONNEN. DU HATTEST SPASS.");
             result = null;
         }
 
