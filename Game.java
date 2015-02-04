@@ -182,6 +182,9 @@ public class Game
         System.out.println("Schreibe [Tschüss], wenn du das Spiel beenden möchtest.");
         System.out.println();
         System.out.println("Schreibe [Karte], um dir die Karte des aktuellen Stockwerks anzeigen zu lassen.");
+        System.out.println();
+        System.out.println("Schreibe [BENUTZE] um eine Gegenstand in dem Raum oder im Inventar zu benutzen");
+        System.out.println();
         System.out.println(assignment.getCurrentTask());
         System.out.println();
         System.out.println(currentRoom.getDescription());
@@ -240,6 +243,11 @@ public class Game
             }}
         else if (commandWord.equals("STEIN")||commandWord.equals("SCHERE")||commandWord.equals("PAPIER"))
             result = "Das spielst im Moment nicht Schere Stein Papier!";
+        else if (commandWord.equals("ZWEIUNDVIERZIG")){
+            System.out.println("HERZLICHEN GLÜCKWUNSCH DU HAST DAS SPIEL GEWONNEN UND ALLES AUFABEN GESCHAFT! :D :D :D");
+            result = null;
+        }
+        
         
         
         return result;
@@ -357,8 +365,10 @@ public class Game
                     inventar.removeItem("HUFEISEN"); 
                     inventar.removeItem("KLEEBLATT"); 
                     inventar.addToInventory("GLÜCKSBRINGER");
+                    Assignments.changeCurrentTask();
                     werkbankInUsage = false;
-                    return "Du hast einen GLÜCKSBRINGER gebaut.";}
+                    return "Du hast einen GLÜCKSBRINGER gebaut.";
+                }
                     else{
                     werkbankInUsage = false;
                     return "Du hast NICHT die richtigen Materialien!";
@@ -403,6 +413,10 @@ public class Game
             }
             result ="Du legst die Muschel zurück in dein Inventar.";
         }
+          else if(command.getSecondWord().equals("NOTIZZETTEL")&& inventar.contains("NOTIZZETTEL")){ 
+            result ="Auf dem Zettel stehet: Wenn du mal die Gelgenheit hast etwas zu fragen , frag nach dem Sinn des Lebens!' ";
+        }
+       
         else{result = "Das kannst du hier nicht benutzen!";}
 
         return result;
@@ -424,14 +438,20 @@ public class Game
                     if(currentRoom.getFixedItems().contains(command.getSecondWord())){
                         result += "Das ist zu schwer für dich! Das kannst du nicht aufheben!";
                         return result;
-                    }
-                    result = "Du erhälst ";
-                    result += command.getSecondWord();
-                    inventar.addToInventory(command.getSecondWord());
-                    currentRoom.removeItem(command.getSecondWord());
-                    return result;
                 }
-                else  {return "Du brauchst erst einen Rucksack!";}
+                    
+                  for(Item item : currentRoom.items){
+                    if(item.getItem().equals(command.getSecondWord())){
+                        inventar.addToInventory(command.getSecondWord());
+                        result = "Du erhälst ";
+                        result += command.getSecondWord();
+                        currentRoom.removeItem(command.getSecondWord());
+                    }
+
+                    }
+                  return result;
+            }
+             else  {return "Du brauchst erst einen Rucksack!";}
 
             }
             else{return "Das kann ich nicht einsammeln";}
@@ -463,6 +483,7 @@ public class Game
         if(result.contains("gewinnst")){
             currentRoom.setOpen();
             result += "\n" + currentRoom.getDescription()+"\n" + "\n" + "zur Verfügung stehende Ausgänge: " + currentRoom.getExits();
+            Assignments.changeCurrentTask();
             inventar.addToInventory("SCHLÜSSEL");
         }
 

@@ -23,22 +23,18 @@ public class Assignments // der Quest Status
     
     public void addTasks(){
         tasks[0] = "Finde einen Rucksack, um Gegenstände tragen zu können";
-        tasks[1] = "Bau dir einen Glücksbringer"; // Um die Tür zu öffnen (in der Küche)
-        tasks[2] = "Gewinne im Schere Stein Papier!";// mit use Küchen schlüssel 
-        tasks[3] = "Bau dir einen Glücksbringer";// Aus Kleeblatt und Hufeisen
-        tasks[4] = "Finde die Vorratskammer";// Schere Stein Papier Mensch besiegen.
-        tasks[5] = "Öffne die Turmtür";// Mit dem Schlüssel vom aus dem Vorratsraum. 
-        tasks[6] = "Hilf dem Bettler";// Essen kochen und dem Bettler bringen um Glück zu erhöhen
-        tasks[7] = "Finde einen weg in den Zielturm";// Indem du den Kickerspieler besiegst bekommst du einen Schlüssel
-        tasks[8] = "Finde einen Hiweiß";// Um die Statur im Garten anzusprechen
-        tasks[9] = "Löse das Rätel";// Mit indem du den Hinweiß mit der Statur verwendest.
+        tasks[1] = "Bau dir einen Glücksbringer";
+        tasks[2] = "Gewinne im Schere Stein Papier";
+        tasks[3] = "Benutze den Schlüssel.";
+        tasks[4] = "Bau dir die Magischemiesmuschel";
+        tasks[5] = "Gewinne das Spiel";
     }
     
     public String getCurrentTask(){
          return "\nAktuelle Mission: " + tasks[taskCounter];    
     }
     
-    public void changeCurrentTask(){
+    static void changeCurrentTask(){
         taskCounter += 1;
     }
 

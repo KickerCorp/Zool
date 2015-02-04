@@ -17,7 +17,7 @@ public class Room
 {
     private String description;
     private HashMap<String, Room> exits;  
-    private ArrayList<Item> items;
+    public ArrayList<Item> items;
     private boolean open;
     //jeder Raum hat nun eine Arraylist of Persons 
     private ArrayList<Person> persons;
