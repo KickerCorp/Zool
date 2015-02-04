@@ -170,7 +170,7 @@ public class Game
         System.out.println();
         System.out.println("Schreibe [NIMM + gewünschten Gegenstand], um einen Gegenstand aufzusammeln.");
         System.out.println();
-        System.out.println("Schreibe [INVENTAR] um dir ein derzeitges Inventar anzuzeigen.");
+        System.out.println("Schreibe [INVENTAR] um dir ein derzeitiges Inventar anzuzeigen.");
         System.out.println();
         System.out.println("Schreibe [UMSCHAUEN] um dir die aktuellen Gegenstände im Raum anzeigen zu lassen.");
         System.out.println();
@@ -178,7 +178,8 @@ public class Game
         System.out.println();
         System.out.println("Schreibe [BENUTZE] um eine Gegenstand in dem Raum oder im Inventar zu benutzen");
         System.out.println();
-        System.out.println("Schreibe [TSCHÜSS], wenn du das Spiel beenden möchtest.");
+        System.out.println("Schreibe [TSCHÜSS], wenn du das Spiel beenden möchtest(was du natürlich nicht möchtest).");
+        System.out.println("Tipp: Schau dich in jedem Raum um und nimm alles auf, was du siehst!");
         System.out.println(assignment.getCurrentTask());
         System.out.println();
         System.out.println(currentRoom.getDescription());
@@ -236,7 +237,7 @@ public class Game
                 result = "Du kannst zur Zeit nichts kombinieren! Benutze dafür die WERKBANK";
             }}
         else if (commandWord.equals("STEIN")||commandWord.equals("SCHERE")||commandWord.equals("PAPIER"))
-            result = "Das spielst im Moment nicht Schere Stein Papier!";
+            result = "Das spielst im Moment nicht Schere-Stein-Papier!";
         else if (commandWord.equals("ZWEIUNDVIERZIG")){
             System.out.println("HERZLICHEN GLÜCKWUNSCH DU HAST DAS SPIEL GEWONNEN UND ALLES AUFABEN GESCHAFT! :D :D :D");
             result = null;
@@ -295,7 +296,7 @@ public class Game
             return result;
         }
         if(!currentRoom.isOpen()){
-            result += " Um diesen Raum betreten zu können, brauchst du einen Schlüssel.\n";
+            result += " Um diesen Raum betreten zu können, brauchst du einen KÜCHENSCHLÜSSEL.\n";
              if(currentRoom == rooms[3] && inventar.contains("KÜCHENSCHLÜSSEL")){
                 result += "Du benutzt den KÜCHENSCHLÜSSEL und öffnest die Tür.\n";
                 result += currentRoom.getDescription()+"\n" + "\n" + "zur Verfügung stehende Ausgänge: " + currentRoom.getExits();
@@ -397,7 +398,7 @@ public class Game
         else if(command.getSecondWord().equals("GLÜCKSBRINGER")&& inventar.contains("GLÜCKSBRINGER")){
             engine.setProbability(50);
             inventar.removeItem("GLÜCKSBRINGER");
-            return "Du hast den Glücksbringer benutzt und dein Glück im Spiel steig extrem!!";
+            return "Du hast den GLÜCKSBRINGER benutzt und dein Glück im Spiel steig extrem!!";
         }
         else if(command.getSecondWord().equals("WERKBANK")&& currentRoom.getItemName().contains("WERKBANK")){
             werkbankInUsage = true;
@@ -411,10 +412,10 @@ public class Game
                 String input = parser.getCommandAsString();
                 muschelInUse = muschel.start(input);
             }
-            result ="Du legst die Muschel zurück in dein Inventar.";
+            result ="Du legst die MAGISCHEMIESMUSCHEL zurück in dein INVENTAR.";
         }
         else if(command.getSecondWord().equals("NOTIZZETTEL")&& inventar.contains("NOTIZZETTEL")){ 
-            result ="Auf dem Zettel stehet: Wenn du mal die Gelgenheit hast etwas zu fragen , frag nach dem Sinn des Lebens!' ";
+            result ="Auf dem NOTIZZETTEL stehet: Wenn du mal die Gelgenheit hast etwas zu fragen , frag nach dem Sinn des Lebens!' ";
         }
 
         else{result = "Das kannst du hier nicht benutzen!";}
@@ -434,7 +435,7 @@ public class Game
             } 
         }
         if(inventar.inventoryFull()){
-            result += "Dein Rucksack ist schon voll!";
+            result += "Dein RUCKSACK ist schon voll!";
             return result;
         }
          for(int i = 0; i < currentRoom.getNumberOfItems();i++){
@@ -471,7 +472,7 @@ public class Game
 
                     return result;
                 }
-                else  {return "Du brauchst erst einen Rucksack!";}
+                else  {return "Du brauchst erst einen RUCKSACK!";}
     }
 
     private String showInventar(){
