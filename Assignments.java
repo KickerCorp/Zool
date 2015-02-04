@@ -34,9 +34,9 @@ public class Assignments // der Quest Status
          return "\nAktuelle Mission: " + tasks[taskCounter];    
     }
     
-    public void changeCurrentTask(){
+    public String changeCurrentTask(){
         taskCounter += 1;
-        System.out.println("\n" + getCurrentTask());
+        return "\n" + getCurrentTask();
     }
 
    

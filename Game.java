@@ -303,7 +303,7 @@ public class Game
                 result += currentRoom.getDescription()+"\n" + "\n" + "zur Verfügung stehende Ausgänge: " + currentRoom.getExits();
                 inventar.removeItem("KÜCHENSCHLÜSSEL");
                 currentRoom.setOpen();
-                assignment.changeCurrentTask();
+                result += assignment.changeCurrentTask();
                 return result;
             }
             currentRoom = lastRoom;
@@ -370,12 +370,12 @@ public class Game
                     inventar.addToInventory("GLÜCKSBRINGER");
 
                     werkbankInUsage = false;
-                    System.out.println("Du hast einen GLÜCKSBRINGER gebaut.");
-                    assignment.changeCurrentTask();
+                    result += "Du hast einen GLÜCKSBRINGER gebaut.";
+                    result += assignment.changeCurrentTask();
                     return result;
                 }
                 else{
-                    return "Dein Rucksack ist schon voll";
+                    return "Dein RUCKSACK ist schon voll";
                 }
             }
             else{
@@ -406,7 +406,7 @@ public class Game
         else if(command.getSecondWord().equals("GLÜCKSBRINGER")&& inventar.contains("GLÜCKSBRINGER")){
             engine.setProbability(50);
             inventar.removeItem("GLÜCKSBRINGER");
-            return "Du hast den GLÜCKSBRINGER benutzt und dein Glück im Spiel steig extrem!!";
+            return "Du hast den GLÜCKSBRINGER benutzt und dein Glück im Spiel steigt extrem!!";
         }
         else if(command.getSecondWord().equals("WERKBANK")&& currentRoom.getItemName().contains("WERKBANK")){
             werkbankInUsage = true;
@@ -466,8 +466,12 @@ public class Game
                 result += "Das ist zu schwer für dich! Das kannst du nicht aufheben!";
                 return result;
             }
-
-
+                    inventar.addToInventory(command.getSecondWord());
+                    result += "Du erhälst: ";
+                    result += command.getSecondWord();
+                    if(command.getSecondWord().equals("RUCKSACK")){
+                        result+= assignment.changeCurrentTask();
+                    }
                     return result;
                 }
                 else  {return "Du brauchst erst einen RUCKSACK!";}

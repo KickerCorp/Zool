@@ -7,5 +7,5 @@ comment1.target=void\ addTasks()
 comment2.params=
 comment2.target=java.lang.String\ getCurrentTask()
 comment3.params=
-comment3.target=void\ changeCurrentTask()
+comment3.target=java.lang.String\ changeCurrentTask()
 numComments=4
