@@ -58,8 +58,8 @@ public class Game
         kueche = new Room("Du befindest dich in der Küche", null,herd = new Item("HERD", true),false);
         schlafzimmer = new Room("Du befindest dich im Schlafzimmer",null,null,true); //Rucksack hinzugefügt
         badezimmer = new Room("Du befindest dich im Badezimmer",null,hufeisen = new Item("HUFEISEN", false),true);
-        keller = new Room("Du befindest dich im Keller", türsteher = new Person("Türsteher"),null,true);
-        vorratskammer = new Room("Du befindest dich in der Vorratskammer",bettler = new Person("BETTLER"),gepökelterSchweinerücken = new Item("GEPÖKELTER SCHWEINERÜCKEN", false),false);
+        keller = new Room("Du befindest dich im Keller", türsteher = new Person("TÜRSTEHER"),null,true);
+        vorratskammer = new Room("Du befindest dich in der Vorratskammer",bettler = new Person("BETTLER"),gepökelterSchweinerücken = new Item("NOTIZZETTEL", false),false);
         kickerraum = new Room("Du befindest dich im Kickerraum",duc = new Person("DUC DER KICKERMAN"),null,false);
         flur = new Room("Du befindest dich im Flur in der ersten Etage",null,null,true);
         zielraum = new Room("Du befindest dich im Zielraum",prinzessin = new Person("PRINZESSIN"),null,false);
@@ -83,9 +83,9 @@ public class Game
         while(i == 3){
             i = rand.nextInt(9);
         }
-        rooms[0].addItem("RUCKSACK", false);
-        rooms[0].addItem("WASSER", false); 
-        rooms[0].addItem("MIESMUSCHEL", false);
+        rooms[6].addItem("RUCKSACK", false);
+        rooms[5].addItem("WASSER", false); 
+        rooms[3].addItem("MIESMUSCHEL", false);
 
         // initialise room exits
         //alle Himmelsrichtungen großgeschrieben wegen trimUpperCase() in Parser
@@ -146,7 +146,7 @@ public class Game
             }
 
         }
-        System.out.println("Thank you for playing.  Good bye.");
+        System.out.println("Du willst schon gehen? Nagut.");
     }
 
     /**
@@ -158,30 +158,27 @@ public class Game
         System.out.println("Herzlich Willkommen in der World of Duc!!");
         System.out.println("World of Duc wird dich verändern.");  
         System.out.println();
-        System.out.println("Du wirst Rätsel lösen, unglaublichen Gefahren ausgesetzt sein,");
+        System.out.println("Du wirst Rätsel lösen, unglaublichen Gefahren ausgesetzt sein und");
         System.out.println("Schere-Stein-Papier bis zum Umfallen spielen");
-        System.out.println("und deine Kickerskills ins Unendliche verbessern!");
+        System.out.println("Schreibe [HILFE], wenn du sie benötigst.");
         System.out.println();
-        System.out.println("Schreibe [Hilfe], wenn du sie benötigst.");
-        System.out.println();
-        System.out.println("Schreibe [nach] gefolgt von [Osten], [Westen], [Norden],");
-        System.out.println("[Süden], [Oben] oder [Unten], um einen Raum");
+        System.out.println("Schreibe [NACH] gefolgt von [OSTEN], [WESTEN], [NORDEN],");
+        System.out.println("[SÜDEN], [OBEN] oder [UNTEN], um einen Raum");
         System.out.println("in angegebener Richtung zu verlassen.");
         System.out.println();
-        System.out.println("Schreibe [Auftrag], um dir deine aktuelle Mission anzeigen zu lassen.");
+        System.out.println("Schreibe [AUFTRAG], um dir deine aktuelle Mission anzeigen zu lassen.");
         System.out.println();
-        System.out.println("Schreibe [], um mit einer Person zu reden.");
+        System.out.println("Schreibe [NIMM + gewünschten Gegenstand], um einen Gegenstand aufzusammeln.");
         System.out.println();
-        System.out.println("Schreibe [nimm + gewünschten Gegenstand], um einen Gegenstand aufzusammeln.");
+        System.out.println("Schreibe [INVENTAR] um dir ein derzeitges Inventar anzuzeigen.");
         System.out.println();
-        System.out.println("Schreibe [Inventar] um dir ein derzeitges Inventar anzuzeigen.");
+        System.out.println("Schreibe [UMSCHAUEN] um dir die aktuellen Gegenstände im Raum anzeigen zu lassen.");
         System.out.println();
-        System.out.println("Schreibe [Tschüss], wenn du das Spiel beenden möchtest.");
-        System.out.println();
-        System.out.println("Schreibe [Karte], um dir die Karte des aktuellen Stockwerks anzeigen zu lassen.");
+        System.out.println("Schreibe [KARTE], um dir die Karte des aktuellen Stockwerks anzeigen zu lassen.");
         System.out.println();
         System.out.println("Schreibe [BENUTZE] um eine Gegenstand in dem Raum oder im Inventar zu benutzen");
         System.out.println();
+        System.out.println("Schreibe [TSCHÜSS], wenn du das Spiel beenden möchtest.");
         System.out.println(assignment.getCurrentTask());
         System.out.println();
         System.out.println(currentRoom.getDescription());
@@ -258,11 +255,11 @@ public class Game
      */
     private String printHelp() 
     {   String result = "";
-        result += "You are lost. You are alone. You wander\n";
-        result += "around at the university.\n";
+        result += "Du hast dich verirrt und bist alleine. Du wanderst\n";
+        result += "durch das Schloss.\n";
         result += "\n";
-        result += "Your command words are:\n";
-        result += "   go quit help\n";
+        result += "Deine Kommandos sind:\n";
+        result += "[AUFTRAG] [UMSCHAUEN] [KARTE] [ZURÜCK] [TSCHÜSS]   \n";
         return result;
     }
 
@@ -274,7 +271,7 @@ public class Game
     {
         if(!command.hasSecondWord()) {
             // if there is no second word, we don't know where to go...
-            return "Go where?";
+            return "Wohin?";
         }
         String result = "";
         //speichert aktuellen Raum lokal
@@ -318,7 +315,7 @@ public class Game
     private String quit(Command command) 
     {
         if(command.hasSecondWord()) {
-            return "Quit what?";
+            return "Was?";
         }
         else {
             return null;  // signal that we want to quit
@@ -524,8 +521,8 @@ public class Game
                 result += "Kellergeschoss     T = Treppe\n";
 
                 result += " ___________     ___________    ____________\n";
-                result += "| Werkstatt |   |          |   |            |\n";
-                result += "|           |---|   Keller |---|Vorratsraum |\n";
+                result += "|           |   |          |   |            |\n";
+                result += "|Vorratsraum|---|  Keller  |---| Werkstatt  |\n";
                 result += "|___________|   |_T________|   |____________|\n";
                 return result;
             }
