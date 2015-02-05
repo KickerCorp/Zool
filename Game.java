@@ -356,7 +356,9 @@ public class Game
                 inventar.removeItem("MIESMUSCHEL"); 
                 inventar.addToInventory("MAGISCHEMIESMUSCHEL");
                 werkbankInUsage = false;
-                return "Du hast einen MAGISCHEMIESMUSCHEL gebaut.";
+                result += "Du hast einen MAGISCHEMIESMUSCHEL gebaut.";
+                result += assignment.changeCurrentTask();
+                return result;
             }else{
                 werkbankInUsage = false;
                 return "Du hast NICHT die richtigen Materialien!";
