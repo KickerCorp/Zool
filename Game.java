@@ -89,6 +89,7 @@ public class Game
         rooms[3].addItem("MIESMUSCHEL", false);
         rooms[i].addItem("KLEEBLATT", false);
         rooms[9].addItem("NOTIZZETTEL", false);
+        rooms[i].addItem("HUFEISEN", false);
 
         // initialise room exits
         //alle Himmelsrichtungen groﬂgeschrieben wegen trimUpperCase() in Parser
