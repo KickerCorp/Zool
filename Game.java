@@ -51,16 +51,16 @@ public class Game
     {
         Room eingangshalle, schlossgarten, kueche, terrasse, schlafzimmer,flur, badezimmer, keller, vorratskammer, kickerraum, werkstatt, zielraum;
         Person bettler, duc, prinzessin,  türsteher;
-        Item rucksack, kleeblatt, hufeisen, gepökelterSchweinerücken, herd, werkbank;
+        Item rucksack, kleeblatt, hufeisen, notizzettel, herd, werkbank;
         // create the rooms
 
         eingangshalle = new Room("Du befindest dich in der Eingangshalle",null, null,true);
-        schlossgarten = new Room("Du befindest dich im Schlossgarten",null,kleeblatt = new Item("KLEEBLATT", false),true);
+        schlossgarten = new Room("Du befindest dich im Schlossgarten",null,null,true);
         kueche = new Room("Du befindest dich in der Küche", null,herd = new Item("HERD", true),false);
         schlafzimmer = new Room("Du befindest dich im Schlafzimmer",null,null,true); //Rucksack hinzugefügt
-        badezimmer = new Room("Du befindest dich im Badezimmer",null,hufeisen = new Item("HUFEISEN", false),true);
+        badezimmer = new Room("Du befindest dich im Badezimmer",null,null,true);
         keller = new Room("Du befindest dich im Keller", türsteher = new Person("TÜRSTEHER"),null,true);
-        vorratskammer = new Room("Du befindest dich in der Vorratskammer",null,gepökelterSchweinerücken = new Item("NOTIZZETTEL", false),false);
+        vorratskammer = new Room("Du befindest dich in der Vorratskammer",null,null,false);
         kickerraum = new Room("Du befindest dich im Kickerraum",duc = new Person("DUC DER KICKERMAN"),null,false);
         flur = new Room("Du befindest dich im Flur in der ersten Etage",null,null,true);
         zielraum = new Room("Du befindest dich im Zielraum",prinzessin = new Person("PRINZESSIN"),null,false);
@@ -84,9 +84,11 @@ public class Game
         while(i == 3){
             i = rand.nextInt(9);
         }
-        rooms[6].addItem("RUCKSACK", false);
-        rooms[5].addItem("WASSER", false); 
+        rooms[i].addItem("RUCKSACK", false);
+        rooms[i].addItem("WASSER", false); 
         rooms[3].addItem("MIESMUSCHEL", false);
+        rooms[i].addItem("KLEEBLATT", false);
+        rooms[9].addItem("NOTIZZETTEL", false);
 
         // initialise room exits
         //alle Himmelsrichtungen großgeschrieben wegen trimUpperCase() in Parser

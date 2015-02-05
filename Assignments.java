@@ -27,7 +27,7 @@ public class Assignments // der Quest Status
         tasks[2] = "Gewinne im Schere-Stein-Papier";
         tasks[3] = "Begib dich in die Küche.";
         tasks[4] = "Bau dir die Magischemiesmuschel";
-        tasks[5] = "Gewinne das Spiel";
+        tasks[5] = "Finde den Sinn und Schreibe ihn in die Line";
     }
     
     public String getCurrentTask(){
