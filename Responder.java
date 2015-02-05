@@ -90,6 +90,8 @@ public class Responder
     public void fillAnswers()
     {
         answers.put("WAS IST DER SINN DES LEBENS", "Moment ich rechne... 'Zweiundvierzig' ist die Antwort");
+        answers.put("WAS IST DER SINN DES LEBENS?", "Moment ich rechne... 'Zweiundvierzig' ist die Antwort");
+        
 
     }
 
