@@ -503,6 +503,7 @@ public class Game
             result += "\nDu erhälst KÜCHENSCHLÜSSEL.";
             inventar.addToInventory("KÜCHENSCHLÜSSEL");
             result += "\n" + currentRoom.getDescription()+"\n" + "\n" + "zur Verfügung stehende Ausgänge: " + currentRoom.getExits();
+            result += 
             assignment.changeCurrentTask();
 
         }
