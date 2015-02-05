@@ -22,12 +22,12 @@ public class Assignments // der Quest Status
     }
     
     public void addTasks(){
-        tasks[0] = "Finde einen Rucksack, um Gegenstände tragen zu können";
-        tasks[1] = "Bau dir einen Glücksbringer und benutze ihn. Du wirst ihn brauchen. Stichwort: Keller!";
+        tasks[0] = "Finde einen RUCKSACK, um Gegenstände tragen zu können";
+        tasks[1] = "Bau dir einen GLÜCKSBRINGER und benutze ihn. Du wirst ihn brauchen. Stichwort: Keller!";
         tasks[2] = "Gewinne im Schere-Stein-Papier";
         tasks[3] = "Begib dich in die Küche.";
-        tasks[4] = "Bau dir die Magischemiesmuschel";
-        tasks[5] = "Schreibe die Antwort auf die Fragen aller Fragen in die Kommandozeile!";
+        tasks[4] = "Bau dir die MAGISCHEMIESMUSCHEL";
+        tasks[5] = "Schreibe die Antwort auf die Fragen aller Fragen in die Kommandozeile!\n Tipp: Schaue dich in der Vorratskammer genauer um!";
     }
     
     public String getCurrentTask(){

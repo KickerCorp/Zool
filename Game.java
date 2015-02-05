@@ -85,10 +85,19 @@ public class Game
             i = rand.nextInt(9);
         }
         rooms[i].addItem("RUCKSACK", false);
+         while(i == 3){
+            i = rand.nextInt(9);
+        }
         rooms[i].addItem("WASSER", false); 
+         while(i == 3){
+            i = rand.nextInt(9);
+        }
         rooms[3].addItem("MIESMUSCHEL", false);
         rooms[i].addItem("KLEEBLATT", false);
         rooms[9].addItem("NOTIZZETTEL", false);
+         while(i == 3){
+            i = rand.nextInt(9);
+        }
         rooms[i].addItem("HUFEISEN", false);
 
         // initialise room exits
@@ -262,7 +271,7 @@ public class Game
         result += "durch das Schloss.\n";
         result += "\n";
         result += "Deine Kommandos sind:\n";
-        result += "[AUFTRAG] [UMSCHAUEN] [KARTE] [ZURÜCK] [TSCHÜSS]   \n";
+        result += "[AUFTRAG] [UMSCHAUEN] [KARTE] [ZURÜCK] [TSCHÜSS] [BENUTZE + GEGENSTAND] [NACH + RICHTUNG] \n";
         return result;
     }
 
